@@ -31,7 +31,7 @@ export const Product: FC<ProductProps> = ({ imageUrl, type, name, price }) => {
 					<ProductImage src={imageUrl} alt={name} />
 				</picture>
 				<Button type="button">
-					<Icon iconType={IconType.Cart} />
+					<Icon iconType={IconType.Cart} styles={{ flex: "0 0 auto" }} />
 					<ButtonText>Add to Cart</ButtonText>
 				</Button>
 			</ProductImageWrapper>

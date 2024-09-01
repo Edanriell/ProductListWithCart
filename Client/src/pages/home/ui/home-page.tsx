@@ -1,6 +1,10 @@
 import { FC } from "react";
 
+import { Product } from "@entities/product/ui";
+
 import { MainLayout } from "@widgets/layouts/main/ui";
+
+import { HomePageContent, HomePageStyled } from "./styles";
 
 const products = [
 	{
@@ -62,12 +66,16 @@ const products = [
 export const HomePage: FC = () => {
 	return (
 		<MainLayout>
-			<main>
-				<section>
+			<HomePageStyled>
+				<HomePageContent>
 					<div>
 						<h1>Desserts</h1>
 						<ul>
-							<li></li>
+							{products.map(({ imageUrl, type, name, price }, index) => (
+								<li key={name + "-" + index}>
+									<Product imageUrl={imageUrl} name={name} type={type} price={price} />
+								</li>
+							))}
 						</ul>
 					</div>
 					<div>
@@ -82,8 +90,8 @@ export const HomePage: FC = () => {
 						</picture>
 						<p>Your added items will appear here</p>
 					</div>
-				</section>
-			</main>
+				</HomePageContent>
+			</HomePageStyled>
 		</MainLayout>
 	);
 };
