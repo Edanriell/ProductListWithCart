@@ -6,7 +6,14 @@ import { Cart } from "@features/cart/ui";
 
 import { MainLayout } from "@widgets/layouts/main/ui";
 
-import { HomePageContent, HomePageStyled } from "./styles";
+import {
+	HomePageContent,
+	HomePageMainContent,
+	HomePageProductList,
+	HomePageProductListItem,
+	HomePageStyled,
+	HomePageTitle
+} from "./styles";
 
 const products = [
 	{
@@ -70,16 +77,16 @@ export const HomePage: FC = () => {
 		<MainLayout>
 			<HomePageStyled>
 				<HomePageContent>
-					<div>
-						<h1>Desserts</h1>
-						<ul>
+					<HomePageMainContent>
+						<HomePageTitle>Desserts</HomePageTitle>
+						<HomePageProductList>
 							{products.map(({ imageUrl, type, name, price }, index) => (
-								<li key={name + "-" + index}>
+								<HomePageProductListItem key={name + "-" + index}>
 									<Product imageUrl={imageUrl} name={name} type={type} price={price} />
-								</li>
+								</HomePageProductListItem>
 							))}
-						</ul>
-					</div>
+						</HomePageProductList>
+					</HomePageMainContent>
 					<Cart />
 				</HomePageContent>
 			</HomePageStyled>
