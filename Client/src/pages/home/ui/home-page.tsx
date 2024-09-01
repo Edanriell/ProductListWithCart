@@ -2,6 +2,8 @@ import { FC } from "react";
 
 import { Product } from "@entities/product/ui";
 
+import { Cart } from "@features/cart/ui";
+
 import { MainLayout } from "@widgets/layouts/main/ui";
 
 import { HomePageContent, HomePageStyled } from "./styles";
@@ -78,20 +80,13 @@ export const HomePage: FC = () => {
 							))}
 						</ul>
 					</div>
-					<div>
-						<p>
-							Your Cart <span>(0)</span>
-						</p>
-						<picture>
-							<img
-								src="/images/raster/products/waffle-with-berries.jpg"
-								alt="Waffle with Berries"
-							/>
-						</picture>
-						<p>Your added items will appear here</p>
-					</div>
+					<Cart />
 				</HomePageContent>
 			</HomePageStyled>
 		</MainLayout>
 	);
 };
+
+// TODO
+// Mobile Home Page, check how it works
+// Tablet Product card, tablet cart, tablet home page
