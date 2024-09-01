@@ -24,7 +24,7 @@ export const Icon: FC<IconProps> = ({ iconType }) => {
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
 				>
-					<g clip-path="url(#clip0_1_448)">
+					<g clipPath="url(#clip0_1_448)">
 						<path
 							d="M6.75 18.75C7.44036 18.75 8 18.1904 8 17.5C8 16.8096 7.44036 16.25 6.75 16.25C6.05964 16.25 5.5 16.8096 5.5 17.5C5.5 18.1904 6.05964 18.75 6.75 18.75Z"
 							fill="#C73B0F"
