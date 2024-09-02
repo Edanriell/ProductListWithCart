@@ -95,6 +95,6 @@ export const HomePage: FC = () => {
 };
 
 // TODO
-// Tablet Product card
-// Tablet cart
-// Tablet home page
+// Desktop Product card
+// Desktop cart
+// Desktop home page
