@@ -30,6 +30,16 @@ export const HomePageProductList = styled.ul`
 	display: flex;
 	flex-direction: column;
 	row-gap: 24rem;
+
+	@media (width >= 768px) {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(213px, 1fr));
+		grid-template-rows: auto;
+		column-gap: 24rem;
+		row-gap: 32rem;
+		align-items: center;
+		justify-content: center;
+	}
 `;
 
 export const HomePageProductListItem = styled.li`
