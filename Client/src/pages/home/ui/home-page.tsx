@@ -95,6 +95,5 @@ export const HomePage: FC = () => {
 };
 
 // TODO
-// Desktop Product card
-// Desktop cart
-// Desktop home page
+// Fix box-sizing: border-box
+// cards 250px - 215px

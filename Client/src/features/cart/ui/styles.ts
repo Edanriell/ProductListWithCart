@@ -4,9 +4,11 @@ export const CartStyled = styled.aside`
 	border-radius: 12rem;
 	background: var(--color-white);
 	padding: 24rem 24rem 40rem 24rem;
+	box-sizing: border-box;
 
 	@media (width >= 1440px) {
 		grid-column: 2 / 3;
+		align-self: start;
 	}
 `;
 
