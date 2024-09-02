@@ -3,14 +3,24 @@ import styled from "styled-components";
 export const HomePageStyled = styled.main`
 	padding-left: 24rem;
 	padding-right: 24rem;
+
+	@media (width >= 768px) {
+		padding-left: 40rem;
+		padding-right: 40rem;
+	}
 `;
 
 export const HomePageContent = styled.section`
-	padding-top: 21rem;
-	padding-bottom: 24rem;
+	margin-top: 21rem;
+	margin-bottom: 24rem;
 	display: flex;
 	flex-direction: column;
 	row-gap: 32rem;
+
+	@media (width >= 768px) {
+		margin-top: 37rem;
+		margin-bottom: 40rem;
+	}
 `;
 
 export const HomePageMainContent = styled.div`
@@ -33,7 +43,7 @@ export const HomePageProductList = styled.ul`
 
 	@media (width >= 768px) {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(213px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(207px, 1fr));
 		grid-template-rows: auto;
 		column-gap: 24rem;
 		row-gap: 32rem;
