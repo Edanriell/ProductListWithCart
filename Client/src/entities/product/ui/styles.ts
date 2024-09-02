@@ -11,6 +11,10 @@ export const ProductImageWrapper = styled.div`
 	position: relative;
 	width: 100%;
 	max-height: 212rem;
+
+	@media (width >= 1440px) {
+		max-height: 240px;
+	}
 `;
 
 export const ProductImage = styled.img`
@@ -18,6 +22,10 @@ export const ProductImage = styled.img`
 	width: 100%;
 	max-height: 212rem;
 	border-radius: 8rem;
+
+	@media (width >= 1440px) {
+		max-height: 240px;
+	}
 `;
 
 export const ProductContent = styled.div`

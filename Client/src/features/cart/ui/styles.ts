@@ -4,6 +4,10 @@ export const CartStyled = styled.aside`
 	border-radius: 12rem;
 	background: var(--color-white);
 	padding: 24rem 24rem 40rem 24rem;
+
+	@media (width >= 1440px) {
+		grid-column: 2 / 3;
+	}
 `;
 
 export const CartPrimaryText = styled.strong`

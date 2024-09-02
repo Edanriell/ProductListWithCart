@@ -21,10 +21,20 @@ export const HomePageContent = styled.section`
 		margin-top: 37rem;
 		margin-bottom: 40rem;
 	}
+
+	@media (width >= 1440px) {
+		display: grid;
+		grid-template-columns: auto 384rem;
+		column-gap: 32rem;
+	}
 `;
 
 export const HomePageMainContent = styled.div`
 	position: relative;
+
+	@media (width >= 1440px) {
+		grid-column: 1 / 2;
+	}
 `;
 
 export const HomePageTitle = styled.h1`
@@ -47,8 +57,10 @@ export const HomePageProductList = styled.ul`
 		grid-template-rows: auto;
 		column-gap: 24rem;
 		row-gap: 32rem;
-		align-items: center;
-		justify-content: center;
+	}
+
+	@media (width >= 1440px) {
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 	}
 `;
 
