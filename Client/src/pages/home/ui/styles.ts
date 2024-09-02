@@ -8,6 +8,11 @@ export const HomePageStyled = styled.main`
 		padding-left: 40rem;
 		padding-right: 40rem;
 	}
+
+	@media (width >= 1440px) {
+		padding-left: 112rem;
+		padding-right: 112rem;
+	}
 `;
 
 export const HomePageContent = styled.section`
@@ -26,6 +31,8 @@ export const HomePageContent = styled.section`
 		display: grid;
 		grid-template-columns: auto 384rem;
 		column-gap: 32rem;
+		margin-top: 85rem;
+		margin-bottom: 88rem;
 	}
 `;
 
@@ -60,7 +67,7 @@ export const HomePageProductList = styled.ul`
 	}
 
 	@media (width >= 1440px) {
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
 	}
 `;
 
