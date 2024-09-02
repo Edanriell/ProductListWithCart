@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const CartStyled = styled.aside`
 	border-radius: 12rem;
 	background: var(--color-white);
-	padding: 24rem;
+	padding: 24rem 24rem 40rem 24rem;
 `;
 
 export const CartPrimaryText = styled.strong`
