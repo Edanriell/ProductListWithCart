@@ -55,7 +55,7 @@ export const Button = styled.button`
 	max-height: 44rem;
 	background: var(--color-white);
 	box-sizing: border-box;
-	padding: 12.5rem 28rem;
+	padding: 12rem 28rem;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
