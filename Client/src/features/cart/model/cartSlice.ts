@@ -24,12 +24,22 @@ export const cartSlice = createSlice({
 
 			if (!product) {
 				state.products.push({ ...action.payload, count: 1 });
+
+				// return {
+				// 	...state,
+				// 	products: [...state.products, { ...action.payload, count: 1 }]
+				// };
 			}
 		},
 		removeFromCart: (state: CartState, action: PayloadAction<{ id: number }>) => {
 			state.products = state.products.filter(
 				(product: CartProduct) => product.id !== action.payload.id
 			);
+
+			// return {
+			// 	...state,
+			// 	products: state.products.filter((product: CartProduct) => product.id !== action.payload.id)
+			// };
 		},
 		incrementProductCount: (state: CartState, action: PayloadAction<{ id: number }>) => {
 			const product = state.products.find((product) => product.id === action.payload.id);
@@ -37,6 +47,13 @@ export const cartSlice = createSlice({
 			if (product) {
 				product.count += 1;
 			}
+
+			// return {
+			// 	...state,
+			// 	products: state.products.map((product) =>
+			// 		product.id === action.payload.id ? { ...product, count: product.count + 1 } : product
+			// 	)
+			// };
 		},
 		decrementProductCount: (state: CartState, action: PayloadAction<{ id: number }>) => {
 			const product = state.products.find((product) => product.id === action.payload.id);
@@ -48,6 +65,24 @@ export const cartSlice = createSlice({
 					state.products = state.products.filter((product) => product.id !== action.payload.id);
 				}
 			}
+
+			// if (product) {
+			// 	if (product.count > 1) {
+			// 		return {
+			// 			...state,
+			// 			products: state.products.map((p) =>
+			// 				p.id === action.payload.id ? { ...p, count: p.count - 1 } : p
+			// 			)
+			// 		};
+			// 	} else {
+			// 		return {
+			// 			...state,
+			// 			products: state.products.filter((p) => p.id !== action.payload.id)
+			// 		};
+			// 	}
+			// }
+			//
+			// return state;
 		}
 	}
 });
