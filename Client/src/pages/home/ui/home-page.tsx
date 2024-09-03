@@ -93,7 +93,3 @@ export const HomePage: FC = () => {
 		</MainLayout>
 	);
 };
-
-// TODO
-// Fix box-sizing: border-box
-// cards 250px - 215px
