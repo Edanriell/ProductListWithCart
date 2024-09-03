@@ -29,7 +29,7 @@ export const HomePageContent = styled.section`
 
 	@media (width >= 1440px) {
 		display: grid;
-		grid-template-columns: auto 384rem;
+		grid-template-columns: 1fr 384rem;
 		column-gap: 32rem;
 		margin-top: 85rem;
 		margin-bottom: 88rem;
