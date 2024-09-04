@@ -92,3 +92,6 @@ export const { addToCart, removeFromCart, incrementProductCount, decrementProduc
 
 export const totalProductsCount = (state: RootState) =>
 	state.cart.products.reduce((total: number, product: CartProduct) => total + product.count, 0);
+
+// TODO
+// Inspect logic
