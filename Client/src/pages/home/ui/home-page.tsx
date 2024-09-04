@@ -83,9 +83,9 @@ const products = [
 
 export const HomePage: FC = () => {
 	const renderProducts = () => {
-		return products.map(({ imageUrl, type, name, price }, index) => (
-			<HomePageProductListItem key={name + "-" + index}>
-				<Product imageUrl={imageUrl} name={name} type={type} price={price} />
+		return products.map(({ id, imageUrl, type, name, price }, index) => (
+			<HomePageProductListItem key={name + "-" + id + "-" + index}>
+				<Product id={id} imageUrl={imageUrl} name={name} type={type} price={price} />
 			</HomePageProductListItem>
 		));
 	};
