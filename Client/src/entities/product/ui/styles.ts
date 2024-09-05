@@ -17,17 +17,6 @@ export const ProductImageWrapper = styled.div`
 	}
 `;
 
-export const ProductImage = styled.img`
-	object-fit: cover;
-	width: 100%;
-	max-height: 212rem;
-	border-radius: 8rem;
-
-	@media (width >= 1440px) {
-		max-height: 240px;
-	}
-`;
-
 export const ProductContent = styled.div`
 	display: flex;
 	flex-direction: column;
