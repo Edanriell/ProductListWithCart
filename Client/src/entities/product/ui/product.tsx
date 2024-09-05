@@ -1,11 +1,6 @@
-import "./styles.less";
-
 import { FC, useEffect, useState } from "react";
-import { motion } from "framer-motion";
 
-import { useAppDispatch, useAppSelector, useRenderCount } from "@shared/lib/hooks";
-
-import { Icon, IconType } from "@shared/ui/icon";
+import { useAppSelector, useRenderCount } from "@shared/lib/hooks";
 
 import { formatNumberToTwoDecimalPlaces } from "../lib/functions";
 
@@ -18,7 +13,6 @@ import {
 	ProductStyled,
 	ProductType
 } from "./styles.ts";
-import { addToCart, decrementProductCount, incrementProductCount } from "@features/cart/model";
 
 type ProductProps = {
 	id: number;
@@ -33,19 +27,6 @@ export const Product: FC<ProductProps> = ({ id, imageUrl, type, name, price }) =
 	const [isProductInCart, setIsProductInCart] = useState<boolean>(false);
 
 	const cartProducts = useAppSelector((state) => state.cart);
-	const dispatch = useAppDispatch();
-
-	const handleAddToCartButtonClick = () => {
-		dispatch(addToCart({ id, imageUrl, type, name, price }));
-	};
-
-	const handleIncrementButtonClick = () => {
-		dispatch(incrementProductCount({ id }));
-	};
-
-	const handleDecrementButtonClick = () => {
-		dispatch(decrementProductCount({ id }));
-	};
 
 	useEffect(() => {
 		console.log(renderCount);
@@ -62,30 +43,13 @@ export const Product: FC<ProductProps> = ({ id, imageUrl, type, name, price }) =
 	}, [cartProducts, id]);
 
 	return (
-		<ProductStyled style={{ backgroundColor: isProductInCart ? "red" : "green" }}>
+		<ProductStyled>
 			<ProductImageWrapper>
 				<picture>
 					<ProductImage src={imageUrl} alt={name} />
 				</picture>
-				{!isProductInCart && (
-					<motion.button onClick={handleAddToCartButtonClick} className="button" type="button">
-						<Icon iconType={IconType.Cart} styles={{ flex: "0 0 auto" }} />
-						<motion.span className="button__text">Add to Cart</motion.span>
-					</motion.button>
-				)}
-				{isProductInCart && (
-					<motion.div className="button2">
-						<motion.button onClick={handleDecrementButtonClick} className="button3">
-							<Icon iconType={IconType.Minus} styles={{ flex: "0 0 auto" }} />
-						</motion.button>
-						<motion.span className="button__text2">
-							{cartProducts.products.find((product) => product.id === id)?.count}
-						</motion.span>
-						<motion.button onClick={handleIncrementButtonClick} className="button3">
-							<Icon iconType={IconType.Plus} styles={{ flex: "0 0 auto" }} />
-						</motion.button>
-					</motion.div>
-				)}
+				{!isProductInCart && <div></div>}
+				{isProductInCart && <div></div>}
 			</ProductImageWrapper>
 			<ProductContent>
 				<ProductType>{type}</ProductType>

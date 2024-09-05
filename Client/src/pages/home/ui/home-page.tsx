@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { Product } from "@entities/product/ui";
 
-import { Cart } from "@features/cart/ui";
+import { Cart } from "@features/cart/ui/cart";
 
 import { MainLayout } from "@widgets/layouts/main/ui";
 
