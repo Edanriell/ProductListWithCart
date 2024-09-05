@@ -2,7 +2,9 @@ import { FC } from "react";
 
 import { Product } from "@entities/product/ui";
 
-import { Cart } from "@features/cart/ui";
+import { Cart } from "@features/cart/ui/cart";
+import { AddToCartButton } from "@features/cart/ui/add-to-cart-button";
+import { CartActionsButton } from "@features/cart/ui/cart-actions-button";
 
 import { MainLayout } from "@widgets/layouts/main/ui";
 
@@ -83,9 +85,17 @@ const products = [
 
 export const HomePage: FC = () => {
 	const renderProducts = () => {
-		return products.map(({ imageUrl, type, name, price }, index) => (
-			<HomePageProductListItem key={name + "-" + index}>
-				<Product imageUrl={imageUrl} name={name} type={type} price={price} />
+		return products.map(({ id, imageUrl, type, name, price }, index) => (
+			<HomePageProductListItem key={name + "-" + id + "-" + index}>
+				<Product
+					id={id}
+					imageUrl={imageUrl}
+					name={name}
+					type={type}
+					price={price}
+					AddToCartButton={() => AddToCartButton({ id, imageUrl, type, name, price })}
+					CartActionsButton={() => CartActionsButton({ id, name })}
+				/>
 			</HomePageProductListItem>
 		));
 	};

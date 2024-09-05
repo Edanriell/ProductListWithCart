@@ -54,31 +54,3 @@ export const ProductPrice = styled.p`
 	font-size: 16rem;
 	color: var(--color-red);
 `;
-
-export const Button = styled.button`
-	border: 1rem solid var(--color-rose-400);
-	border-radius: 999rem;
-	min-width: 160rem;
-	max-width: 160rem;
-	max-height: 44rem;
-	background: var(--color-white);
-	box-sizing: border-box;
-	padding: 12rem 28rem;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	column-gap: 8rem;
-	cursor: pointer;
-	position: absolute;
-	bottom: 0;
-	left: 50%;
-	transform: translateX(-50%) translateY(50%);
-`;
-
-export const ButtonText = styled.span`
-	font-family: var(--font-family), sans-serif;
-	font-weight: 600;
-	font-size: 14rem;
-	color: var(--color-rose-900);
-	flex: 0 0 auto;
-`;
