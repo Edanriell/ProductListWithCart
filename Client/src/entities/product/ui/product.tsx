@@ -1,7 +1,7 @@
 import "./styles.less";
 
 import { FC, ReactNode, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { useAppSelector } from "@shared/lib/hooks";
 
@@ -69,8 +69,10 @@ export const Product: FC<ProductProps> = ({
 						alt={name}
 					/>
 				</picture>
-				{!isProductInCart && AddToCartButton ? <AddToCartButton /> : null}
-				{isProductInCart && CartActionsButton ? <CartActionsButton /> : null}
+				<AnimatePresence>
+					{!isProductInCart && AddToCartButton ? <AddToCartButton /> : null}
+					{isProductInCart && CartActionsButton ? <CartActionsButton /> : null}
+				</AnimatePresence>
 			</ProductImageWrapper>
 			<ProductContent>
 				<ProductType>{type}</ProductType>
