@@ -32,7 +32,12 @@ export const CartActionsButton: FC<CartActionsButtonProps> = ({ id, name }) => {
 	};
 
 	return (
-		<motion.div className="cart-actions-button">
+		<motion.div
+			initial={{ opacity: 0, x: "-50%", y: "50%", scale: 0.75 }}
+			animate={{ opacity: 1, x: "-50%", y: "50%", scale: 1 }}
+			exit={{ opacity: 0, x: "-50%", y: "50%", scale: 0.75 }}
+			className="cart-actions-button"
+		>
 			<motion.button onClick={handleDecrementButtonClick} className="cart-actions-button__action">
 				<Icon iconType={IconType.Minus} styles={{ flex: "0 0 auto" }} />
 				<span className="visually-hidden">{"Add one unit of " + name + " to cart"}</span>
