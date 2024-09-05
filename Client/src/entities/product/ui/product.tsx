@@ -1,12 +1,14 @@
-import { FC, ReactNode, useEffect, useState } from "react";
+import "./styles.less";
 
-import { useAppSelector, useRenderCount } from "@shared/lib/hooks";
+import { FC, ReactNode, useEffect, useState } from "react";
+import { motion } from "framer-motion";
+
+import { useAppSelector } from "@shared/lib/hooks";
 
 import { formatNumberToTwoDecimalPlaces } from "../lib/functions";
 
 import {
 	ProductContent,
-	ProductImage,
 	ProductImageWrapper,
 	ProductName,
 	ProductPrice,
@@ -24,6 +26,15 @@ type ProductProps = {
 	CartActionsButton?: () => ReactNode;
 };
 
+const productImageVariants = {
+	active: {
+		border: "2px solid #c73b0f"
+	},
+	inactive: {
+		border: "2px solid #fcf8f6"
+	}
+};
+
 export const Product: FC<ProductProps> = ({
 	id,
 	imageUrl,
@@ -33,14 +44,8 @@ export const Product: FC<ProductProps> = ({
 	AddToCartButton,
 	CartActionsButton
 }) => {
-	const renderCount = useRenderCount();
 	const [isProductInCart, setIsProductInCart] = useState<boolean>(false);
-
 	const cartProducts = useAppSelector((state) => state.cart);
-
-	useEffect(() => {
-		console.log(renderCount);
-	}, [renderCount]);
 
 	useEffect(() => {
 		const currentProductIndex = cartProducts.products.findIndex((product) => product.id === id);
@@ -56,7 +61,13 @@ export const Product: FC<ProductProps> = ({
 		<ProductStyled>
 			<ProductImageWrapper>
 				<picture>
-					<ProductImage src={imageUrl} alt={name} />
+					<motion.img
+						variants={productImageVariants}
+						animate={isProductInCart ? "active" : "inactive"}
+						className="product-image"
+						src={imageUrl}
+						alt={name}
+					/>
 				</picture>
 				{!isProductInCart && AddToCartButton ? <AddToCartButton /> : null}
 				{isProductInCart && CartActionsButton ? <CartActionsButton /> : null}
