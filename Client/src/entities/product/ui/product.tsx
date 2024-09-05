@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 
 import { useAppSelector, useRenderCount } from "@shared/lib/hooks";
 
@@ -20,9 +20,19 @@ type ProductProps = {
 	type: string;
 	name: string;
 	price: number;
+	AddToCartButton?: () => ReactNode;
+	CartActionsButton?: () => ReactNode;
 };
 
-export const Product: FC<ProductProps> = ({ id, imageUrl, type, name, price }) => {
+export const Product: FC<ProductProps> = ({
+	id,
+	imageUrl,
+	type,
+	name,
+	price,
+	AddToCartButton,
+	CartActionsButton
+}) => {
 	const renderCount = useRenderCount();
 	const [isProductInCart, setIsProductInCart] = useState<boolean>(false);
 
@@ -48,8 +58,8 @@ export const Product: FC<ProductProps> = ({ id, imageUrl, type, name, price }) =
 				<picture>
 					<ProductImage src={imageUrl} alt={name} />
 				</picture>
-				{!isProductInCart && <div></div>}
-				{isProductInCart && <div></div>}
+				{!isProductInCart && AddToCartButton ? <AddToCartButton /> : null}
+				{isProductInCart && CartActionsButton ? <CartActionsButton /> : null}
 			</ProductImageWrapper>
 			<ProductContent>
 				<ProductType>{type}</ProductType>
