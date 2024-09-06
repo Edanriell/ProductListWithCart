@@ -33,17 +33,27 @@ export const CartActionsButton: FC<CartActionsButtonProps> = ({ id, name }) => {
 
 	return (
 		<motion.div
-			initial={{ opacity: 0, x: "-50%", y: "50%", scale: 0.75 }}
-			animate={{ opacity: 1, x: "-50%", y: "50%", scale: 1 }}
-			exit={{ opacity: 0, x: "-50%", y: "50%", scale: 0.75 }}
+			initial={{ opacity: 0, x: "-50%", y: "50%", scale: 0.75, filter: "blur(4px)" }}
+			animate={{ opacity: 1, x: "-50%", y: "50%", scale: 1, filter: "blur(0px)" }}
+			exit={{ opacity: 0, x: "-50%", y: "50%", scale: 0.75, filter: "blur(4px)" }}
+			whileHover={{ scale: 1.1 }}
+			whileTap={{ scale: 0.9 }}
 			className="cart-actions-button"
 		>
-			<motion.button onClick={handleDecrementButtonClick} className="cart-actions-button__action">
+			<motion.button
+				whileHover={{ background: "#fff", color: "#c73b0f" }}
+				onClick={handleDecrementButtonClick}
+				className="cart-actions-button__action"
+			>
 				<Icon iconType={IconType.Minus} styles={{ flex: "0 0 auto" }} />
 				<span className="visually-hidden">{"Add one unit of " + name + " to cart"}</span>
 			</motion.button>
 			<motion.span className="cart-actions-button__text">{currentProductCount()}</motion.span>
-			<motion.button onClick={handleIncrementButtonClick} className="cart-actions-button__action">
+			<motion.button
+				whileHover={{ background: "#fff", color: "#c73b0f" }}
+				onClick={handleIncrementButtonClick}
+				className="cart-actions-button__action"
+			>
 				<Icon iconType={IconType.Plus} styles={{ flex: "0 0 auto" }} />
 				<span className="visually-hidden">{"Remove one unit of " + name + " from cart"}</span>
 			</motion.button>
