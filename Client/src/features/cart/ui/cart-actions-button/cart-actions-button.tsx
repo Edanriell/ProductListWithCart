@@ -36,12 +36,11 @@ export const CartActionsButton: FC<CartActionsButtonProps> = ({ id, name }) => {
 			initial={{ opacity: 0, x: "-50%", y: "50%", scale: 0.75, filter: "blur(4px)" }}
 			animate={{ opacity: 1, x: "-50%", y: "50%", scale: 1, filter: "blur(0px)" }}
 			exit={{ opacity: 0, x: "-50%", y: "50%", scale: 0.75, filter: "blur(4px)" }}
-			whileHover={{ scale: 1.1 }}
-			whileTap={{ scale: 0.9 }}
 			className="cart-actions-button"
 		>
 			<motion.button
-				whileHover={{ background: "#fff", color: "#c73b0f" }}
+				whileHover={{ background: "#fff", color: "#c73b0f", scale: 1.1 }}
+				whileTap={{ scale: 0.9 }}
 				onClick={handleDecrementButtonClick}
 				className="cart-actions-button__action"
 			>
@@ -50,7 +49,8 @@ export const CartActionsButton: FC<CartActionsButtonProps> = ({ id, name }) => {
 			</motion.button>
 			<motion.span className="cart-actions-button__text">{currentProductCount()}</motion.span>
 			<motion.button
-				whileHover={{ background: "#fff", color: "#c73b0f" }}
+				whileHover={{ background: "#fff", color: "#c73b0f", scale: 1.1 }}
+				whileTap={{ scale: 0.9 }}
 				onClick={handleIncrementButtonClick}
 				className="cart-actions-button__action"
 			>
