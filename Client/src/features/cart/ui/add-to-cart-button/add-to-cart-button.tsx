@@ -21,9 +21,9 @@ export const AddToCartButton: FC<AddToCartButtonProps> = ({ id, imageUrl, type, 
 
 	return (
 		<motion.button
-			initial={{ opacity: 0, x: "-50%", y: "50%", scale: 0.75 }}
-			animate={{ opacity: 1, x: "-50%", y: "50%", scale: 1 }}
-			exit={{ opacity: 0, x: "-50%", y: "50%", scale: 0.75 }}
+			initial={{ opacity: 0, x: "-50%", y: "50%", scale: 0.75, filter: "blur(4px)" }}
+			animate={{ opacity: 1, x: "-50%", y: "50%", scale: 1, filter: "blur(0px)" }}
+			exit={{ opacity: 0, x: "-50%", y: "50%", scale: 0.75, filter: "blur(4px)" }}
 			whileHover={{ scale: 1.1, color: "#c73b0f", borderColor: "#c73b0f" }}
 			whileTap={{ scale: 0.9, color: "#c73b0f", borderColor: "#c73b0f" }}
 			onClick={handleAddToCartButtonClick}
