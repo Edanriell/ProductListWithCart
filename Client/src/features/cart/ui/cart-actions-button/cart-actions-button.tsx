@@ -13,6 +13,17 @@ type CartActionsButtonProps = {
 	name: string;
 };
 
+const cartActionsButtonAnimationVariants = {
+	initial: { opacity: 0, x: "-50%", y: "50%", scale: 0.9, filter: "blur(2px)" },
+	displayed: { opacity: 1, x: "-50%", y: "50%", scale: 1, filter: "blur(0px)" },
+	hidden: { opacity: 0, x: "-50%", y: "50%", scale: 0.9, filter: "blur(2px)" }
+};
+
+const actionButtonAnimationVariants = {
+	hovered: { background: "#fff", color: "#c73b0f", scale: 1.1 },
+	taped: { scale: 0.9 }
+};
+
 export const CartActionsButton: FC<CartActionsButtonProps> = ({ id, name }) => {
 	const cartProducts = useAppSelector((state) => state.cart);
 	const dispatch = useAppDispatch();
@@ -33,14 +44,16 @@ export const CartActionsButton: FC<CartActionsButtonProps> = ({ id, name }) => {
 
 	return (
 		<motion.div
-			initial={{ opacity: 0, x: "-50%", y: "50%", scale: 0.75, filter: "blur(4px)" }}
-			animate={{ opacity: 1, x: "-50%", y: "50%", scale: 1, filter: "blur(0px)" }}
-			exit={{ opacity: 0, x: "-50%", y: "50%", scale: 0.75, filter: "blur(4px)" }}
+			initial={"initial"}
+			animate={"displayed"}
+			exit={"hidden"}
+			variants={cartActionsButtonAnimationVariants}
 			className="cart-actions-button"
 		>
 			<motion.button
-				whileHover={{ background: "#fff", color: "#c73b0f", scale: 1.1 }}
-				whileTap={{ scale: 0.9 }}
+				whileHover={"hovered"}
+				whileTap={"taped"}
+				variants={actionButtonAnimationVariants}
 				onClick={handleDecrementButtonClick}
 				className="cart-actions-button__action"
 			>
@@ -49,8 +62,9 @@ export const CartActionsButton: FC<CartActionsButtonProps> = ({ id, name }) => {
 			</motion.button>
 			<motion.span className="cart-actions-button__text">{currentProductCount()}</motion.span>
 			<motion.button
-				whileHover={{ background: "#fff", color: "#c73b0f", scale: 1.1 }}
-				whileTap={{ scale: 0.9 }}
+				whileHover={"hovered"}
+				whileTap={"taped"}
+				variants={actionButtonAnimationVariants}
 				onClick={handleIncrementButtonClick}
 				className="cart-actions-button__action"
 			>

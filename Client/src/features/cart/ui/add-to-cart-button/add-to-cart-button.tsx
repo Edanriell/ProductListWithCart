@@ -12,6 +12,14 @@ import { addToCart } from "../../model";
 
 type AddToCartButtonProps = Product;
 
+const addToCartButtonAnimationVariants = {
+	initial: { x: "-50%", y: "50%", scale: 0.9, filter: "blur(2px)" },
+	displayed: { opacity: 1, x: "-50%", y: "50%", scale: 1, filter: "blur(0px)" },
+	hidden: { opacity: 0, x: "-50%", y: "50%", scale: 0.9, filter: "blur(2px)" },
+	hovered: { scale: 1.1, color: "#c73b0f", borderColor: "#c73b0f" },
+	taped: { scale: 0.9, color: "#c73b0f", borderColor: "#c73b0f" }
+};
+
 export const AddToCartButton: FC<AddToCartButtonProps> = ({ id, imageUrl, type, name, price }) => {
 	const dispatch = useAppDispatch();
 
@@ -21,11 +29,12 @@ export const AddToCartButton: FC<AddToCartButtonProps> = ({ id, imageUrl, type, 
 
 	return (
 		<motion.button
-			initial={{ opacity: 0, x: "-50%", y: "50%", scale: 0.75, filter: "blur(4px)" }}
-			animate={{ opacity: 1, x: "-50%", y: "50%", scale: 1, filter: "blur(0px)" }}
-			exit={{ opacity: 0, x: "-50%", y: "50%", scale: 0.75, filter: "blur(4px)" }}
-			whileHover={{ scale: 1.1, color: "#c73b0f", borderColor: "#c73b0f" }}
-			whileTap={{ scale: 0.9, color: "#c73b0f", borderColor: "#c73b0f" }}
+			initial={"initial"}
+			animate={"displayed"}
+			exit={"hidden"}
+			whileHover={"hovered"}
+			whileTap={"taped"}
+			variants={addToCartButtonAnimationVariants}
 			onClick={handleAddToCartButtonClick}
 			className="add-to-cart-button"
 			type="button"
