@@ -37,3 +37,7 @@ export const CartImage = styled.img`
 	height: 128rem;
 	margin: 0 auto;
 `;
+
+export const CartContent = styled.div`
+	position: relative;
+`;
