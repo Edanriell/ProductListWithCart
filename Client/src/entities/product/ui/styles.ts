@@ -1,12 +1,5 @@
 import styled from "styled-components";
 
-export const ProductStyled = styled.article`
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	row-gap: 38rem;
-`;
-
 export const ProductImageWrapper = styled.div`
 	position: relative;
 	width: 100%;
