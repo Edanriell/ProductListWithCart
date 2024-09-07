@@ -88,6 +88,7 @@ export const HomePage: FC = () => {
 		return products.map(({ id, imageUrl, type, name, price }, index) => (
 			<HomePageProductListItem key={name + "-" + id + "-" + index}>
 				<Product
+					index={index}
 					id={id}
 					imageUrl={imageUrl}
 					name={name}

@@ -1,4 +1,4 @@
-import "./styles.less";
+import "./product.less";
 
 import { FC, ReactNode, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -12,11 +12,11 @@ import {
 	ProductImageWrapper,
 	ProductName,
 	ProductPrice,
-	ProductStyled,
 	ProductType
 } from "./styles.ts";
 
 type ProductProps = {
+	index: number;
 	id: number;
 	imageUrl: string;
 	type: string;
@@ -36,6 +36,7 @@ const productImageVariants = {
 };
 
 export const Product: FC<ProductProps> = ({
+	index,
 	id,
 	imageUrl,
 	type,
@@ -58,13 +59,17 @@ export const Product: FC<ProductProps> = ({
 	}, [cartProducts, id]);
 
 	return (
-		<ProductStyled>
+		<motion.article
+			initial={{ opacity: 0, scale: 0.75 }}
+			animate={{ opacity: 1, scale: 1, transition: { delay: index * 0.1 } }}
+			className="product"
+		>
 			<ProductImageWrapper>
 				<picture>
 					<motion.img
 						variants={productImageVariants}
 						animate={isProductInCart ? "active" : "inactive"}
-						className="product-image"
+						className="product__image"
 						src={imageUrl}
 						alt={name}
 					/>
@@ -79,6 +84,6 @@ export const Product: FC<ProductProps> = ({
 				<ProductName>{name}</ProductName>
 				<ProductPrice>${formatNumberToTwoDecimalPlaces(price)}</ProductPrice>
 			</ProductContent>
-		</ProductStyled>
+		</motion.article>
 	);
 };
