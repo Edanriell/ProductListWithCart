@@ -71,8 +71,10 @@ export const Cart: FC = () => {
 	};
 
 	return (
-		<CartStyled>
-			<CartPrimaryText>
+		<CartStyled
+			style={{ padding: cartProducts.length === 0 ? "24rem 24rem 40rem 24rem" : "24rem" }}
+		>
+			<CartPrimaryText style={{ marginBottom: cartProducts.length === 0 ? "40rem" : "24rem" }}>
 				Your Cart <span>({cartProducts.length})</span>
 			</CartPrimaryText>
 			{cartProducts.length === 0 && (

@@ -18,7 +18,6 @@ export const CartPrimaryText = styled.strong`
 	font-weight: 700;
 	font-size: 24rem;
 	color: var(--color-red);
-	margin-bottom: 40rem;
 	text-align: left;
 `;
 
@@ -45,6 +44,7 @@ export const CartContent = styled.div`
 export const ProductList = styled.ul`
 	display: flex;
 	flex-direction: column;
+	row-gap: 16rem;
 `;
 
 export const OrderTotal = styled.div`
@@ -52,6 +52,7 @@ export const OrderTotal = styled.div`
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
+	margin-top: 24rem;
 `;
 
 export const OrderTotalText = styled.div`
@@ -78,6 +79,8 @@ export const CartBanner = styled.div`
 	align-items: center;
 	justify-content: center;
 	column-gap: 8rem;
+	margin-top: 24rem;
+	margin-bottom: 24rem;
 `;
 
 export const CartBannerText = styled.p`
@@ -118,11 +121,24 @@ export const ProductRow = styled.div`
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
+	padding-bottom: 16rem;
+
+	&::after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		display: block;
+		background: var(--color-rose-100);
+		height: 1rem;
+	}
 `;
 
 export const ProductRowContent = styled.div`
 	display: flex;
 	flex-direction: column;
+	row-gap: 8rem;
 `;
 
 export const ProductName = styled.strong`
@@ -135,6 +151,7 @@ export const ProductName = styled.strong`
 export const ProductInfo = styled.div`
 	display: flex;
 	flex-direction: row;
+	column-gap: 8rem;
 `;
 
 export const ProductCount = styled.p`
