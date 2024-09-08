@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { motion } from "framer-motion";
 
 import { formatNumberToTwoDecimalPlaces } from "@entities/product/lib/functions";
 
@@ -8,15 +9,35 @@ import { Icon, IconType } from "@shared/ui/icon";
 import { removeFromCart } from "../../model/cartSlice.ts";
 
 import {
+	Button,
+	CartBanner,
+	CartBannerText,
+	CartBannerTextBold,
 	CartContent,
 	CartImage,
 	CartPrimaryText,
 	CartSecondaryText,
-	CartStyled
+	CartStyled,
+	OrderTotal,
+	OrderTotalText,
+	OrderTotalValue,
+	ProductCount,
+	ProductInfo,
+	ProductList,
+	ProductListItem,
+	ProductName,
+	ProductPrice,
+	ProductRow,
+	ProductRowContent,
+	ProductTotalPrice
 } from "./styles.ts";
 
 export const Cart: FC = () => {
 	const cartProducts = useAppSelector((state) => state.cart.products);
+	const orderTotal = useAppSelector((state) => state.cart.products).reduce(
+		(accumulator, { count, price }) => accumulator + count * price,
+		0
+	);
 	const dispatch = useAppDispatch();
 
 	const handleRemoveProductFromCartButtonClick = ({ id }: { id: number }) => {
@@ -25,20 +46,27 @@ export const Cart: FC = () => {
 
 	const renderCartProducts = () => {
 		return cartProducts.map(({ id, name, count, price }, index) => (
-			<li key={name + "-" + id + "-" + index}>
-				<div>
-					<strong>{name}</strong>
-					<div>
-						<p>{count}x</p>
-						<p>@ ${formatNumberToTwoDecimalPlaces(price)}</p>
-						<p>${formatNumberToTwoDecimalPlaces(price * count)}</p>
-					</div>
-					<button onClick={() => handleRemoveProductFromCartButtonClick({ id })} type={"button"}>
+			<ProductListItem key={name + "-" + id + "-" + index}>
+				<ProductRow>
+					<ProductRowContent>
+						<ProductName>{name}</ProductName>
+						<ProductInfo>
+							<ProductCount>{count}x</ProductCount>
+							<ProductPrice>@ ${formatNumberToTwoDecimalPlaces(price)}</ProductPrice>
+							<ProductTotalPrice>
+								${formatNumberToTwoDecimalPlaces(price * count)}
+							</ProductTotalPrice>
+						</ProductInfo>
+					</ProductRowContent>
+					<motion.button
+						onClick={() => handleRemoveProductFromCartButtonClick({ id })}
+						type={"button"}
+					>
 						<Icon iconType={IconType.Cross} />
 						<span className="visually-hidden">Remove product {name} from cart</span>
-					</button>
-				</div>
-			</li>
+					</motion.button>
+				</ProductRow>
+			</ProductListItem>
 		));
 	};
 
@@ -55,18 +83,18 @@ export const Cart: FC = () => {
 			)}
 			{cartProducts.length > 0 && (
 				<CartContent>
-					<ul>{renderCartProducts()}</ul>
-					<div>
-						<p>Order Total</p>
-						<strong></strong>
-					</div>
-					<div>
+					<ProductList>{renderCartProducts()}</ProductList>
+					<OrderTotal>
+						<OrderTotalText>Order Total</OrderTotalText>
+						<OrderTotalValue>${formatNumberToTwoDecimalPlaces(orderTotal)}</OrderTotalValue>
+					</OrderTotal>
+					<CartBanner>
 						<Icon iconType={IconType.Tree} />
-						<p>
-							This is a <b>carbon-neutral</b> delivery
-						</p>
-					</div>
-					<button type={"button"}>Confirm Order</button>
+						<CartBannerText>
+							This is a <CartBannerTextBold>carbon-neutral</CartBannerTextBold> delivery
+						</CartBannerText>
+					</CartBanner>
+					<Button type={"button"}>Confirm Order</Button>
 				</CartContent>
 			)}
 		</CartStyled>
