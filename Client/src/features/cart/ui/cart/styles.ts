@@ -97,20 +97,6 @@ export const CartBannerTextBold = styled.b`
 	color: var(--color-rose-900);
 `;
 
-export const Button = styled.button`
-	border-radius: 999rem;
-	background: var(--color-red);
-	padding-top: 16rem;
-	padding-bottom: 16rem;
-	font-family: var(--font-family), sans-serif;
-	font-weight: 600;
-	font-size: 16rem;
-	color: var(--color-white);
-	width: 100%;
-	text-align: center;
-	cursor: pointer;
-`;
-
 export const ProductListItem = styled.li`
 	position: relative;
 `;

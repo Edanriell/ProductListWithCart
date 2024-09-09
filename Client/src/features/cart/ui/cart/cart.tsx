@@ -3,13 +3,13 @@ import { motion } from "framer-motion";
 
 import { formatNumberToTwoDecimalPlaces } from "@entities/product/lib/functions";
 
+import { Button } from "@shared/ui/button";
 import { useAppDispatch, useAppSelector } from "@shared/lib/hooks";
 import { Icon, IconType } from "@shared/ui/icon";
 
 import { removeFromCart } from "../../model/cartSlice.ts";
 
 import {
-	Button,
 	CartBanner,
 	CartBannerText,
 	CartBannerTextBold,
@@ -98,7 +98,7 @@ export const Cart: FC = () => {
 							This is a <CartBannerTextBold>carbon-neutral</CartBannerTextBold> delivery
 						</CartBannerText>
 					</CartBanner>
-					<Button type={"button"}>Confirm Order</Button>
+					<Button>Confirm Order</Button>
 				</CartContent>
 			)}
 		</CartStyled>
