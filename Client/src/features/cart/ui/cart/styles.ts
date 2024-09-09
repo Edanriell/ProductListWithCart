@@ -37,10 +37,6 @@ export const CartImage = styled.img`
 	margin: 0 auto;
 `;
 
-export const CartContent = styled.div`
-	position: relative;
-`;
-
 export const ProductList = styled.ul`
 	display: flex;
 	flex-direction: column;
@@ -95,10 +91,6 @@ export const CartBannerTextBold = styled.b`
 	font-weight: 600;
 	font-size: 14rem;
 	color: var(--color-rose-900);
-`;
-
-export const ProductListItem = styled.li`
-	position: relative;
 `;
 
 export const ProductRow = styled.div`

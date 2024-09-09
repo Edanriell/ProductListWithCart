@@ -21,7 +21,7 @@ const cartActionsButtonAnimationVariants = {
 
 const actionButtonAnimationVariants = {
 	hovered: { background: "#fff", color: "#c73b0f", scale: 1.1 },
-	taped: { scale: 0.9 }
+	taped: { scale: 0.9, background: "#fff", color: "#c73b0f" }
 };
 
 export const CartActionsButton: FC<CartActionsButtonProps> = ({ id, name }) => {
