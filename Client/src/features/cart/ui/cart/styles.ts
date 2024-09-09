@@ -97,10 +97,6 @@ export const CartBannerTextBold = styled.b`
 	color: var(--color-rose-900);
 `;
 
-export const ProductListItem = styled.li`
-	position: relative;
-`;
-
 export const ProductRow = styled.div`
 	position: relative;
 	display: flex;

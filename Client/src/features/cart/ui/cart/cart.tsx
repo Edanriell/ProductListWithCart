@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { formatNumberToTwoDecimalPlaces } from "@entities/product/lib/functions";
 
@@ -13,7 +13,6 @@ import {
 	CartBanner,
 	CartBannerText,
 	CartBannerTextBold,
-	CartContent,
 	CartImage,
 	CartPrimaryText,
 	CartSecondaryText,
@@ -24,13 +23,18 @@ import {
 	ProductCount,
 	ProductInfo,
 	ProductList,
-	ProductListItem,
 	ProductName,
 	ProductPrice,
 	ProductRow,
 	ProductRowContent,
 	ProductTotalPrice
 } from "./styles.ts";
+
+const cartProductAnimationVariants = {
+	initial: { y: -10, opacity: 0, scale: 1, filter: "blur(2px)" },
+	displayed: { y: 0, opacity: 1, scale: 1, filter: "blur(0px)" },
+	hidden: { y: 10, opacity: 0, scale: 1, filter: "blur(2px)" }
+};
 
 export const Cart: FC = () => {
 	const cartProducts = useAppSelector((state) => state.cart.products);
@@ -46,9 +50,18 @@ export const Cart: FC = () => {
 
 	const renderCartProducts = () => {
 		return cartProducts.map(({ id, name, count, price }, index) => (
-			<ProductListItem key={name + "-" + id + "-" + index}>
+			<motion.li
+				style={{ position: "relative" }}
+				initial={"initial"}
+				animate={"displayed"}
+				exit={"hidden"}
+				variants={cartProductAnimationVariants}
+				key={id}
+			>
 				<ProductRow
-					style={{ paddingBottom: cartProducts.length - 1 === index ? "24rem" : "16rem" }}
+					style={{
+						paddingBottom: cartProducts.length - 1 === index ? "24rem" : "16rem"
+					}}
 				>
 					<ProductRowContent>
 						<ProductName>{name}</ProductName>
@@ -68,7 +81,7 @@ export const Cart: FC = () => {
 						<span className="visually-hidden">Remove product {name} from cart</span>
 					</motion.button>
 				</ProductRow>
-			</ProductListItem>
+			</motion.li>
 		));
 	};
 
@@ -80,26 +93,32 @@ export const Cart: FC = () => {
 				Your Cart <span>({cartProducts.length})</span>
 			</CartPrimaryText>
 			{cartProducts.length === 0 && (
-				<CartContent>
-					<CartImage src="/images/vector/cake.svg" alt="Illustration of chocolate cake" />
-					<CartSecondaryText>Your added items will appear here</CartSecondaryText>
-				</CartContent>
+				<AnimatePresence>
+					<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+						<CartImage src="/images/vector/cake.svg" alt="Illustration of chocolate cake" />
+						<CartSecondaryText>Your added items will appear here</CartSecondaryText>
+					</motion.div>
+				</AnimatePresence>
 			)}
 			{cartProducts.length > 0 && (
-				<CartContent>
-					<ProductList>{renderCartProducts()}</ProductList>
-					<OrderTotal>
-						<OrderTotalText>Order Total</OrderTotalText>
-						<OrderTotalValue>${formatNumberToTwoDecimalPlaces(orderTotal)}</OrderTotalValue>
-					</OrderTotal>
-					<CartBanner>
-						<Icon iconType={IconType.Tree} />
-						<CartBannerText>
-							This is a <CartBannerTextBold>carbon-neutral</CartBannerTextBold> delivery
-						</CartBannerText>
-					</CartBanner>
-					<Button>Confirm Order</Button>
-				</CartContent>
+				<AnimatePresence>
+					<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+						<ProductList>
+							<AnimatePresence mode="sync">{renderCartProducts()}</AnimatePresence>
+						</ProductList>
+						<OrderTotal>
+							<OrderTotalText>Order Total</OrderTotalText>
+							<OrderTotalValue>${formatNumberToTwoDecimalPlaces(orderTotal)}</OrderTotalValue>
+						</OrderTotal>
+						<CartBanner>
+							<Icon iconType={IconType.Tree} />
+							<CartBannerText>
+								This is a <CartBannerTextBold>carbon-neutral</CartBannerTextBold> delivery
+							</CartBannerText>
+						</CartBanner>
+						<Button>Confirm Order</Button>
+					</motion.div>
+				</AnimatePresence>
 			)}
 		</CartStyled>
 	);
