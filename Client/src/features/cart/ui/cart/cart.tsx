@@ -4,10 +4,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { formatNumberToTwoDecimalPlaces } from "@entities/product/lib/functions";
 
 import { Button } from "@shared/ui/button";
-import { useAppDispatch, useAppSelector } from "@shared/lib/hooks";
+import { useAppSelector } from "@shared/lib/hooks";
 import { Icon, IconType } from "@shared/ui/icon";
 
-import { removeFromCart } from "../../model/cartSlice.ts";
+import { RemoveProductFromCartButton } from "../remove-product-from-cart-button";
 
 import {
 	CartBanner,
@@ -42,11 +42,6 @@ export const Cart: FC = () => {
 		(accumulator, { count, price }) => accumulator + count * price,
 		0
 	);
-	const dispatch = useAppDispatch();
-
-	const handleRemoveProductFromCartButtonClick = ({ id }: { id: number }) => {
-		dispatch(removeFromCart({ id }));
-	};
 
 	const renderCartProducts = () => {
 		return cartProducts.map(({ id, name, count, price }, index) => (
@@ -73,13 +68,7 @@ export const Cart: FC = () => {
 							</ProductTotalPrice>
 						</ProductInfo>
 					</ProductRowContent>
-					<motion.button
-						onClick={() => handleRemoveProductFromCartButtonClick({ id })}
-						type={"button"}
-					>
-						<Icon iconType={IconType.Cross} />
-						<span className="visually-hidden">Remove product {name} from cart</span>
-					</motion.button>
+					<RemoveProductFromCartButton id={id} name={name} />
 				</ProductRow>
 			</motion.li>
 		));

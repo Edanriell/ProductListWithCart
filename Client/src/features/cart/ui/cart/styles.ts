@@ -37,10 +37,6 @@ export const CartImage = styled.img`
 	margin: 0 auto;
 `;
 
-export const CartContent = styled.div`
-	position: relative;
-`;
-
 export const ProductList = styled.ul`
 	display: flex;
 	flex-direction: column;
