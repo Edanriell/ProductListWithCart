@@ -47,11 +47,13 @@ export const Cart: FC = () => {
 	const renderCartProducts = () => {
 		return cartProducts.map(({ id, name, count, price }, index) => (
 			<ProductListItem key={name + "-" + id + "-" + index}>
-				<ProductRow>
+				<ProductRow
+					style={{ paddingBottom: cartProducts.length - 1 === index ? "24rem" : "16rem" }}
+				>
 					<ProductRowContent>
 						<ProductName>{name}</ProductName>
 						<ProductInfo>
-							<ProductCount>{count}x</ProductCount>
+							<ProductCount style={{ minWidth: "21rem" }}>{count}x</ProductCount>
 							<ProductPrice>@ ${formatNumberToTwoDecimalPlaces(price)}</ProductPrice>
 							<ProductTotalPrice>
 								${formatNumberToTwoDecimalPlaces(price * count)}

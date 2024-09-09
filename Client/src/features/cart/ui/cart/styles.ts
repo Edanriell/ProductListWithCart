@@ -121,7 +121,6 @@ export const ProductRow = styled.div`
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	padding-bottom: 16rem;
 
 	&::after {
 		content: "";
