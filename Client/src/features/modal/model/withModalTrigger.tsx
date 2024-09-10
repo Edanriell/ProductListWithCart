@@ -5,14 +5,16 @@ import { Modal } from "../ui/modal";
 
 const modalElement = document.getElementById("modal")!;
 
-export const withModalTrigger = ({
+type withModalTriggerProps<T> = {
+	Trigger: FC<T>;
+	ModalType: FC<{ onModalClose: () => void }>;
+};
+
+export const withModalTrigger = <T extends Record<string, unknown>>({
 	Trigger,
-	ModalContent
-}: {
-	Trigger: FC<any>;
-	ModalContent: FC<{ onModalClose: () => void }>;
-}) => {
-	return (props: any) => {
+	ModalType
+}: withModalTriggerProps<T>) => {
+	return (props: T) => {
 		const [modalState, setModalState] = useState<"opened" | "closed">("closed");
 
 		useEffect(() => {
@@ -33,7 +35,7 @@ export const withModalTrigger = ({
 					<Modal
 						isModalOpened={modalState === "opened"}
 						onModalClose={handleCloseModalButtonClick}
-						ModalContent={ModalContent}
+						ModalType={ModalType}
 					/>,
 					modalElement
 				)}

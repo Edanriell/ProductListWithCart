@@ -5,15 +5,15 @@ import { ModalOverlay } from "./styles";
 type ModalProps = {
 	isModalOpened: boolean;
 	onModalClose: () => void;
-	ModalContent: FC<{ onModalClose: () => void }>;
+	ModalType: FC<{ onModalClose: () => void }>;
 };
 
-export const Modal: FC<ModalProps> = ({ isModalOpened, onModalClose, ModalContent }) => {
+export const Modal: FC<ModalProps> = ({ isModalOpened, onModalClose, ModalType }) => {
 	return (
 		<Fragment>
 			{isModalOpened && (
 				<ModalOverlay>
-					<ModalContent onModalClose={onModalClose} />
+					<ModalType onModalClose={onModalClose} />
 				</ModalOverlay>
 			)}
 		</Fragment>

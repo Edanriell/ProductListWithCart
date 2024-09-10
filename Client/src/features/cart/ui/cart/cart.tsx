@@ -3,8 +3,8 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import { formatNumberToTwoDecimalPlaces } from "@entities/product/lib/functions";
 
-import { withModalTrigger } from "@widgets/modal/model";
-import { CartModal } from "@widgets/modal/ui/cart-modal";
+import { withModalTrigger } from "@features/modal/model";
+import { CartModal } from "@features/modal/ui/cart-modal";
 
 import { Button } from "@shared/ui/button";
 import { useAppSelector } from "@shared/lib/hooks";
@@ -41,7 +41,7 @@ const cartProductAnimationVariants = {
 
 const OpenModalButton = withModalTrigger({
 	Trigger: (props) => <Button {...props}>Confirm Order</Button>,
-	ModalContent: CartModal
+	ModalType: CartModal
 });
 
 export const Cart: FC = () => {
