@@ -12,7 +12,3 @@ export const CartModal: FC<CartModalProps> = ({ onModalClose }) => {
 		</div>
 	);
 };
-
-// TODO
-// Refactor Modal as Feature
-// Cart content can be widget tho according to FSD
