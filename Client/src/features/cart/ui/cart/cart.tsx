@@ -3,6 +3,9 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import { formatNumberToTwoDecimalPlaces } from "@entities/product/lib/functions";
 
+import { withModalTrigger } from "@widgets/modal/model";
+import { CartModal } from "@widgets/modal/ui/cart-modal";
+
 import { Button } from "@shared/ui/button";
 import { useAppSelector } from "@shared/lib/hooks";
 import { Icon, IconType } from "@shared/ui/icon";
@@ -35,6 +38,11 @@ const cartProductAnimationVariants = {
 	displayed: { y: 0, opacity: 1, scale: 1, filter: "blur(0px)" },
 	hidden: { y: 10, opacity: 0, scale: 1, filter: "blur(2px)" }
 };
+
+const OpenModalButton = withModalTrigger({
+	Trigger: (props) => <Button {...props}>Confirm Order</Button>,
+	ModalContent: CartModal
+});
 
 export const Cart: FC = () => {
 	const cartProducts = useAppSelector((state) => state.cart.products);
@@ -105,7 +113,7 @@ export const Cart: FC = () => {
 								This is a <CartBannerTextBold>carbon-neutral</CartBannerTextBold> delivery
 							</CartBannerText>
 						</CartBanner>
-						<Button>Confirm Order</Button>
+						<OpenModalButton />
 					</motion.div>
 				</AnimatePresence>
 			)}
