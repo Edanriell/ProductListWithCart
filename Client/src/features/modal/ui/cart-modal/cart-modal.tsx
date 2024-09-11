@@ -1,7 +1,10 @@
 import { FC } from "react";
 
+import { formatNumberToTwoDecimalPlaces } from "@entities/product/lib/functions";
+
 import { Button } from "@shared/ui/button";
 import { Icon, IconType } from "@shared/ui/icon";
+import { useAppSelector } from "@shared/lib/hooks";
 
 import {
 	CartModalContent,
@@ -12,11 +15,19 @@ import {
 	CartModalOrderTotalValue,
 	CartModalText,
 	CartModalTitle,
+	CartProduct,
+	CartProductContent,
+	CartProductContentWrapper,
+	CartProductCount,
+	CartProductImage,
+	CartProductInfo,
 	CartProductList,
+	CartProductListItem,
+	CartProductName,
+	CartProductPrice,
+	CartProductTotalPrice,
 	StyledCartModal
 } from "./styles";
-import { useAppSelector } from "@shared/lib/hooks";
-import { formatNumberToTwoDecimalPlaces } from "@entities/product/lib/functions";
 
 type CartModalProps = {
 	onModalClose: () => void;
@@ -30,20 +41,26 @@ export const CartModal: FC<CartModalProps> = ({ onModalClose }) => {
 	);
 
 	const renderCartProducts = () => {
-		return cartProducts.map(({ imageUrl, name, price, count, id }) => (
-			<li key={id}>
-				<div>
-					<img src={imageUrl} alt={"Image of " + name} />
-					<div>
-						<strong>{name}</strong>
-						<div>
-							<p>{count}</p>
-							<p>{formatNumberToTwoDecimalPlaces(price)}</p>
-						</div>
-						<p>{formatNumberToTwoDecimalPlaces(count * price)}</p>
-					</div>
-				</div>
-			</li>
+		return cartProducts.map(({ imageUrl, name, price, count, id }, index) => (
+			<CartProductListItem key={id}>
+				<CartProduct
+					style={{ paddingBottom: cartProducts.length - 1 === index ? "24rem" : "16rem" }}
+				>
+					<CartProductImage src={imageUrl} alt={"Image of " + name} />
+					<CartProductContent>
+						<CartProductContentWrapper>
+							<CartProductName>{name}</CartProductName>
+							<CartProductInfo>
+								<CartProductCount>{count}x</CartProductCount>
+								<CartProductPrice>@ {formatNumberToTwoDecimalPlaces(price)}</CartProductPrice>
+							</CartProductInfo>
+						</CartProductContentWrapper>
+						<CartProductTotalPrice>
+							${formatNumberToTwoDecimalPlaces(count * price)}
+						</CartProductTotalPrice>
+					</CartProductContent>
+				</CartProduct>
+			</CartProductListItem>
 		));
 	};
 
@@ -69,6 +86,3 @@ export const CartModal: FC<CartModalProps> = ({ onModalClose }) => {
 		</StyledCartModal>
 	);
 };
-
-// TODO
-// Finish Modal Cart styling
