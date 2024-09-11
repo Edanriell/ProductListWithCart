@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
 import { formatNumberToTwoDecimalPlaces } from "@entities/product/lib/functions";
 
@@ -40,6 +40,17 @@ export const CartModal: FC<CartModalProps> = ({ onModalClose }) => {
 		0
 	);
 
+	const [isCartProductListOverflowing, setIsCartProductListOverflowing] = useState<boolean>(false);
+	const cartProductListRef = useRef<HTMLUListElement>(null);
+
+	useEffect(() => {
+		if (cartProductListRef.current) {
+			const hasOverflow =
+				cartProductListRef.current.scrollHeight > cartProductListRef.current.clientHeight;
+			setIsCartProductListOverflowing(hasOverflow);
+		}
+	}, []);
+
 	const renderCartProducts = () => {
 		return cartProducts.map(({ imageUrl, name, price, count, id }, index) => (
 			<CartProductListItem key={id}>
@@ -72,7 +83,9 @@ export const CartModal: FC<CartModalProps> = ({ onModalClose }) => {
 				<CartModalText>We hope you enjoy your food!</CartModalText>
 			</CartModalHeader>
 			<CartModalContent>
-				<CartProductList>{renderCartProducts()}</CartProductList>
+				<CartProductList ref={cartProductListRef} isOverflowing={isCartProductListOverflowing}>
+					{renderCartProducts()}
+				</CartProductList>
 				<CartModalOrderTotal>
 					<CartModalOrderTotalText>Order Total</CartModalOrderTotalText>
 					<CartModalOrderTotalValue>

@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+type CartProductListProps = {
+	isOverflowing: boolean;
+};
+
 export const StyledCartModal = styled.div`
 	position: fixed;
 	bottom: 0;
@@ -57,11 +61,32 @@ export const CartModalContent = styled.div`
 	background: var(--color-rose-50);
 `;
 
-export const CartProductList = styled.ul`
+export const CartProductList = styled.ul<CartProductListProps>`
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	row-gap: 16rem;
+	overflow: auto;
+	max-height: 238rem;
+	padding-right: ${({ isOverflowing }) => (isOverflowing ? "24rem" : "0")};
+
+	&::-webkit-scrollbar {
+		width: 10rem;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: #f1f1f1;
+		border-radius: 999rem;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: #888;
+		border-radius: 999rem;
+	}
+
+	&::-webkit-scrollbar-thumb:hover {
+		background: #555;
+	}
 `;
 
 export const CartProductListItem = styled.li`
