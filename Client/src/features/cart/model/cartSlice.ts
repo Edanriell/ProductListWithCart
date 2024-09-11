@@ -38,7 +38,7 @@ export const cartSlice = createSlice({
 
 			// return {
 			// 	...state,
-			// 	products: state.products.filter((product: CartProduct) => product.id !== action.payload.id)
+			// 	products: state.products.filter((product-card: CartProduct) => product-card.id !== action.payload.id)
 			// };
 		},
 		incrementProductCount: (state: CartState, action: PayloadAction<{ id: number }>) => {
@@ -50,8 +50,8 @@ export const cartSlice = createSlice({
 
 			// return {
 			// 	...state,
-			// 	products: state.products.map((product) =>
-			// 		product.id === action.payload.id ? { ...product, count: product.count + 1 } : product
+			// 	products: state.products.map((product-card) =>
+			// 		product-card.id === action.payload.id ? { ...product-card, count: product-card.count + 1 } : product-card
 			// 	)
 			// };
 		},
@@ -66,8 +66,8 @@ export const cartSlice = createSlice({
 				}
 			}
 
-			// if (product) {
-			// 	if (product.count > 1) {
+			// if (product-card) {
+			// 	if (product-card.count > 1) {
 			// 		return {
 			// 			...state,
 			// 			products: state.products.map((p) =>
