@@ -8,6 +8,20 @@ export const StyledCartModal = styled.div`
 	border-radius: 12rem 12rem 0 0;
 	padding: 40px 24px 24px 24px;
 	background: var(--color-white);
+
+	@media (width >= 768px) {
+		border-radius: 12rem;
+		padding: 40rem;
+		width: 688rem;
+		bottom: unset;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	@media (width >= 1440px) {
+		width: 592rem;
+	}
 `;
 
 export const CartModalHeader = styled.header`
@@ -102,6 +116,13 @@ export const CartProductName = styled.strong`
 	overflow: hidden;
 	white-space: nowrap;
 	max-width: 153rem;
+
+	@media (width >= 768px) {
+		text-overflow: unset;
+		overflow: auto;
+		white-space: unset;
+		max-width: unset;
+	}
 `;
 
 export const CartProductInfo = styled.div`
