@@ -20,8 +20,9 @@ const cartActionsButtonAnimationVariants = {
 };
 
 const actionButtonAnimationVariants = {
-	hovered: { background: "#fff", color: "#c73b0f", scale: 1.1 },
-	taped: { scale: 0.9, background: "#fff", color: "#c73b0f" }
+	initial: { background: "rgba(255,255,255,0)", color: "#fff", scale: 1 },
+	hovered: { background: "rgba(255,255,255,1)", color: "#c73b0f", scale: 1.1 },
+	taped: { scale: 0.9, background: "rgba(255,255,255,1)", color: "#c73b0f" }
 };
 
 export const CartActionsButton: FC<CartActionsButtonProps> = ({ id, name }) => {
@@ -51,6 +52,7 @@ export const CartActionsButton: FC<CartActionsButtonProps> = ({ id, name }) => {
 			className="cart-actions-button"
 		>
 			<motion.button
+				initial={"initial"}
 				whileHover={"hovered"}
 				whileTap={"taped"}
 				variants={actionButtonAnimationVariants}
@@ -62,6 +64,7 @@ export const CartActionsButton: FC<CartActionsButtonProps> = ({ id, name }) => {
 			</motion.button>
 			<motion.span className="cart-actions-button__text">{currentProductCount()}</motion.span>
 			<motion.button
+				initial={"initial"}
 				whileHover={"hovered"}
 				whileTap={"taped"}
 				variants={actionButtonAnimationVariants}
