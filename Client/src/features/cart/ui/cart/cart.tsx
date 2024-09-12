@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
+import { ProductRowSimplified } from "@entities/product/ui/product-row-simplified";
 import { formatNumberToTwoDecimalPlaces } from "@entities/product/lib/functions";
 
 import { withModalTrigger } from "@features/modal/model";
@@ -23,14 +24,7 @@ import {
 	OrderTotal,
 	OrderTotalText,
 	OrderTotalValue,
-	ProductCount,
-	ProductInfo,
-	ProductList,
-	ProductName,
-	ProductPrice,
-	ProductRow,
-	ProductRowContent,
-	ProductTotalPrice
+	ProductList
 } from "./styles.ts";
 
 const cartProductAnimationVariants = {
@@ -52,32 +46,24 @@ export const Cart: FC = () => {
 	);
 
 	const renderCartProducts = () => {
-		return cartProducts.map(({ id, name, count, price }, index) => (
+		return cartProducts.map((product, index) => (
 			<motion.li
 				style={{ position: "relative" }}
 				initial={"initial"}
 				animate={"displayed"}
 				exit={"hidden"}
 				variants={cartProductAnimationVariants}
-				key={id}
+				key={product.id}
 			>
-				<ProductRow
-					style={{
+				<ProductRowSimplified
+					product={product}
+					styles={{
 						paddingBottom: cartProducts.length - 1 === index ? "24rem" : "16rem"
 					}}
-				>
-					<ProductRowContent>
-						<ProductName>{name}</ProductName>
-						<ProductInfo>
-							<ProductCount style={{ minWidth: "21rem" }}>{count}x</ProductCount>
-							<ProductPrice>@ ${formatNumberToTwoDecimalPlaces(price)}</ProductPrice>
-							<ProductTotalPrice>
-								${formatNumberToTwoDecimalPlaces(price * count)}
-							</ProductTotalPrice>
-						</ProductInfo>
-					</ProductRowContent>
-					<RemoveProductFromCartButton id={id} name={name} />
-				</ProductRow>
+					RemoveProductFromCartButton={() =>
+						RemoveProductFromCartButton({ id: product.id, name: product.name })
+					}
+				/>
 			</motion.li>
 		));
 	};
