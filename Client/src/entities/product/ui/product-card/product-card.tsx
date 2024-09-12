@@ -1,11 +1,11 @@
-import "./product.less";
+import "./product-card.less";
 
 import { FC, ReactNode, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { useAppSelector } from "@shared/lib/hooks";
 
-import { formatNumberToTwoDecimalPlaces } from "../lib/functions";
+import { formatNumberToTwoDecimalPlaces } from "../../lib/functions";
 
 import {
 	ProductContent,
@@ -35,7 +35,7 @@ const productImageVariants = {
 	}
 };
 
-export const Product: FC<ProductProps> = ({
+export const ProductCard: FC<ProductProps> = ({
 	index,
 	id,
 	imageUrl,

@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Product } from "@entities/product/ui";
+import { ProductCard } from "@entities/product/ui/product-card";
 
 import { Cart } from "@features/cart/ui/cart";
 import { AddToCartButton } from "@features/cart/ui/add-to-cart-button";
@@ -87,7 +87,7 @@ export const HomePage: FC = () => {
 	const renderProducts = () => {
 		return products.map(({ id, imageUrl, type, name, price }, index) => (
 			<HomePageProductListItem key={name + "-" + id + "-" + index}>
-				<Product
+				<ProductCard
 					index={index}
 					id={id}
 					imageUrl={imageUrl}
