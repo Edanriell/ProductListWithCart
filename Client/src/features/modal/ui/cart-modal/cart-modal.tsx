@@ -3,6 +3,7 @@ import "./cart-modal.less";
 import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
+import { ProductRow } from "@entities/product/ui/product-row";
 import { formatNumberToTwoDecimalPlaces } from "@entities/product/lib/functions";
 
 import { Button } from "@shared/ui/button";
@@ -18,17 +19,8 @@ import {
 	CartModalOrderTotalValue,
 	CartModalText,
 	CartModalTitle,
-	CartProduct,
-	CartProductContent,
-	CartProductContentWrapper,
-	CartProductCount,
-	CartProductImage,
-	CartProductInfo,
 	CartProductList,
-	CartProductListItem,
-	CartProductName,
-	CartProductPrice,
-	CartProductTotalPrice
+	CartProductListItem
 } from "./styles";
 
 type CartModalProps = {
@@ -65,25 +57,12 @@ export const CartModal: FC<CartModalProps> = ({ onModalClose }) => {
 	}, [cartProductListRef.current]);
 
 	const renderCartProducts = () => {
-		return cartProducts.map(({ imageUrl, name, price, count, id }, index) => (
-			<CartProductListItem key={id}>
-				<CartProduct
-					style={{ paddingBottom: cartProducts.length - 1 === index ? "24rem" : "16rem" }}
-				>
-					<CartProductImage src={imageUrl} alt={"Image of " + name} />
-					<CartProductContent>
-						<CartProductContentWrapper>
-							<CartProductName>{name}</CartProductName>
-							<CartProductInfo>
-								<CartProductCount>{count}x</CartProductCount>
-								<CartProductPrice>@ {formatNumberToTwoDecimalPlaces(price)}</CartProductPrice>
-							</CartProductInfo>
-						</CartProductContentWrapper>
-						<CartProductTotalPrice>
-							${formatNumberToTwoDecimalPlaces(count * price)}
-						</CartProductTotalPrice>
-					</CartProductContent>
-				</CartProduct>
+		return cartProducts.map((product, index) => (
+			<CartProductListItem key={product.id}>
+				<ProductRow
+					product={product}
+					styles={{ paddingBottom: cartProducts.length - 1 === index ? "24rem" : "16rem" }}
+				/>
 			</CartProductListItem>
 		));
 	};

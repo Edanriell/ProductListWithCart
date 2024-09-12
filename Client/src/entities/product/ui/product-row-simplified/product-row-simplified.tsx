@@ -8,8 +8,8 @@ import {
 	ProductInfo,
 	ProductName,
 	ProductPrice,
-	ProductRow,
-	ProductRowContent,
+	ProductRowSimplifiedContent,
+	ProductRowSimplifiedStyled,
 	ProductTotalPrice
 } from "./styles";
 
@@ -27,16 +27,16 @@ export const ProductRowSimplified: FC<ProductRowSimplifiedProps> = ({
 	const { name, count, price } = product;
 
 	return (
-		<ProductRow style={styles}>
-			<ProductRowContent>
+		<ProductRowSimplifiedStyled style={styles}>
+			<ProductRowSimplifiedContent>
 				<ProductName>{name}</ProductName>
 				<ProductInfo>
 					<ProductCount style={{ minWidth: "21rem" }}>{count}x</ProductCount>
 					<ProductPrice>@ ${formatNumberToTwoDecimalPlaces(price)}</ProductPrice>
 					<ProductTotalPrice>${formatNumberToTwoDecimalPlaces(price * count)}</ProductTotalPrice>
 				</ProductInfo>
-			</ProductRowContent>
+			</ProductRowSimplifiedContent>
 			{RemoveProductFromCartButton && <RemoveProductFromCartButton />}
-		</ProductRow>
+		</ProductRowSimplifiedStyled>
 	);
 };
