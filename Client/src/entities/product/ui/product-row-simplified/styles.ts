@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ProductRow = styled.div`
+export const ProductRowSimplifiedStyled = styled.div`
 	position: relative;
 	display: flex;
 	flex-direction: row;
@@ -19,7 +19,7 @@ export const ProductRow = styled.div`
 	}
 `;
 
-export const ProductRowContent = styled.div`
+export const ProductRowSimplifiedContent = styled.div`
 	display: flex;
 	flex-direction: column;
 	row-gap: 8rem;
