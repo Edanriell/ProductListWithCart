@@ -1,5 +1,7 @@
 import { FC } from "react";
 
+import { Link } from "@shared/ui/link";
+
 import {
 	NotFoundPageContent,
 	NotFoundPageStyled,
@@ -15,9 +17,9 @@ export const NotFoundPage: FC = () => {
 				<NotFoundPageText className="not-found__text">
 					Sorry, the page you are looking for does not exist.
 				</NotFoundPageText>
-				<a href="/" target="_parent">
+				<Link href="/" style={{ maxWidth: "300rem" }}>
 					Go Back to Home
-				</a>
+				</Link>
 			</NotFoundPageContent>
 		</NotFoundPageStyled>
 	);
