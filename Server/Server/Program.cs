@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using Server.Features;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,10 +15,32 @@ builder.AddExceptionMapper(builder =>
 	   .ToStatusCode(StatusCodes.Status409Conflict);
 });
 
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("AllowLocalhost",
+		policy =>
+		{
+			policy.WithOrigins("http://localhost:5173", "https://localhost:5173").AllowAnyMethod().AllowAnyHeader();
+		});
+});
+
 builder.AddFeatures();
 
+builder.Services.AddSingleton<ExceptionMiddleware>();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+	app.UseSwagger();
+	app.UseSwaggerUI();
+}
+
 app.UseExceptionHandler();
+app.UseHttpsRedirection();
+app.UseCors("AllowLocalhost");
 
 app.UseExceptionHandler(errorApp =>
 {
@@ -37,7 +60,7 @@ app.UseExceptionHandler(errorApp =>
 
 		await next(context);
 	});
-	errorApp.UseMiddleware<MyExceptionMiddleware>();
+	errorApp.UseMiddleware<ExceptionMiddleware>();
 });
 
 app.MapFeatures();
@@ -50,13 +73,12 @@ public partial class Program
 {
 }
 
-public class MyExceptionMiddleware : IMiddleware
+public class ExceptionMiddleware : IMiddleware
 {
 	public async Task InvokeAsync(HttpContext context, RequestDelegate next)
 	{
 		var exceptionHandlerPathFeature = context.Features
 											 .Get<IExceptionHandlerFeature>() ?? throw new NotSupportedException();
-
 
 		var exception = exceptionHandlerPathFeature.Error;
 		await context.Response.WriteAsJsonAsync(new
