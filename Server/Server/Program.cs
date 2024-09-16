@@ -9,6 +9,8 @@ ServiceConfiguration.ConfigureServices(builder.Services, builder.Configuration);
 // Add exception mappings
 ExceptionMappingConfiguration.ConfigureExceptionMappings(builder);
 
+builder.AddFeatures();
+
 // Build the app
 var app = builder.Build();
 

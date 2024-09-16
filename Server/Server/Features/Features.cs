@@ -10,6 +10,7 @@ public static class Features
 	public static IServiceCollection AddFeatures(this WebApplicationBuilder builder)
 	{
 		builder.AddFluentValidationEndpointFilter();
+
 		return builder.Services
 		   .AddFluentValidationAutoValidation()
 		   .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly())
@@ -32,6 +33,6 @@ public static class Features
 	{
 		using var scope = app.Services.CreateScope();
 
-		await scope.SeedProductsAsync();
+		await scope.InitializeProductsAsync();
 	}
 }
