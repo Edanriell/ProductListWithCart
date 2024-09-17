@@ -1,6 +1,6 @@
 using ForEvolve.ExceptionMapper;
 
-namespace Server.Features.Products;
+namespace Server.Features.Products.Exceptions;
 
 public class DuplicateProductNameException : ConflictException
 {
