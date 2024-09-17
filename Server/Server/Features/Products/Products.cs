@@ -1,8 +1,13 @@
 using Server.Features.Products.Data;
+using Server.Features.Products.Processes.CreateOne;
+using Server.Features.Products.Processes.DeleteOne;
+using Server.Features.Products.Processes.FetchAll;
+using Server.Features.Products.Processes.FetchOne;
+using Server.Features.Products.Processes.UpdateOne;
 
 namespace Server.Features.Products;
 
-public static partial class Products
+public static class Products
 {
 	public static IServiceCollection AddProductsFeature(this IServiceCollection services)
 	{
