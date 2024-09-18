@@ -14,7 +14,7 @@ public static class Products
 	public static IEndpointRouteBuilder MapFetchOne(this IEndpointRouteBuilder endpoints)
 	{
 		endpoints.MapGet(
-				"/{ProductId}",
+				"/product/{productId}",
 				([AsParameters] FetchOneQuery query, FetchOneHandler handler, CancellationToken cancellationToken)
 					=> handler.HandleAsync(query, cancellationToken)
 			);

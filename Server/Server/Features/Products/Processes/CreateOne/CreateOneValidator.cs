@@ -9,7 +9,9 @@ public class CreateOneValidator : AbstractValidator<CreateOneCommand>
 	{
 		RuleFor(x => x.Image)
 		   .NotNull().WithMessage("Product image is required.")
-		   .NotEmpty().WithMessage("Product image cannot be empty.");
+		   .NotEmpty().WithMessage("Product image cannot be empty.")
+		   .Must(image => image.Length <= 5242880) // 5MB in bytes
+		   .WithMessage("Product image cannot exceed 5MB.");
 
 		RuleFor(x => x.Type)
 		   .NotNull().WithMessage("Product type is required.")

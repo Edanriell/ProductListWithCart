@@ -5,21 +5,20 @@ using Server.Features.Products.Responses;
 
 namespace Server.Features.Products.Processes.FetchAll;
 
-public class FetchAllHandler
+public class FetchAllHandler(ProductContext db, FetchAllMapper mapper)
 {
-	private readonly ProductContext _db;
-	private readonly FetchAllMapper _mapper;
-
-	public FetchAllHandler(ProductContext db, FetchAllMapper mapper)
-	{
-		_db = db ?? throw new ArgumentNullException(nameof(db));
-		_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-	}
+	private readonly ProductContext _db = db ?? throw new ArgumentNullException(nameof(db));
+	private readonly FetchAllMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
 	public async Task<FetchAllResponse> HandleAsync(FetchAllQuery query, CancellationToken cancellationToken)
 	{
-		await _db.Products.LoadAsync(cancellationToken);
-		var products = _mapper.Project(_db.Products.OrderBy(x => x.Name));
-		return new FetchAllResponse(products);
+		var products = await _db.Products
+						  .AsNoTracking()
+						  .OrderBy(x => x.Name)
+						  .ToListAsync(cancellationToken);
+
+		var responseProducts = _mapper.Project(products);
+
+		return new FetchAllResponse(responseProducts);
 	}
 }

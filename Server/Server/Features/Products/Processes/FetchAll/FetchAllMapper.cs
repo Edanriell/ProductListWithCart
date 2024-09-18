@@ -7,5 +7,5 @@ namespace Server.Features.Products.Processes.FetchAll;
 [Mapper]
 public partial class FetchAllMapper
 {
-	public partial IEnumerable<FetchAllProductsResponseProduct> Project(IQueryable<Product> products);
+	public partial List<FetchAllProductsResponseProduct> Project(List<Product> products);
 }

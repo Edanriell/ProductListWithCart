@@ -7,5 +7,5 @@ namespace Server.Features.Products.Processes.UpdateOne;
 [Mapper]
 public partial class UpdateOneMapper
 {
-	public partial UpdateOneResponse Map(Product item);
+	public partial UpdateOneResponse Map(Product product);
 }
