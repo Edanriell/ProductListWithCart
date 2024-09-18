@@ -6,28 +6,26 @@ using Server.Features.Products.Responses;
 
 namespace Server.Features.Products.Processes.UpdateOne;
 
-public class UpdateOneHandler
+public class UpdateOneHandler(ProductContext db, UpdateOneMapper mapper)
 {
-	private readonly ProductContext _db;
-	private readonly UpdateOneMapper _mapper;
-
-	public UpdateOneHandler(ProductContext db, UpdateOneMapper mapper)
-	{
-		_db = db ?? throw new ArgumentNullException(nameof(db));
-		_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-	}
+	private readonly ProductContext _db = db ?? throw new ArgumentNullException(nameof(db));
+	private readonly UpdateOneMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
 	public async Task<UpdateOneResponse> HandleAsync(UpdateOneCommand command, CancellationToken cancellationToken)
 	{
-		var item = await _db.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == command.Product.Id);
+		var item = await _db.Products
+					  .AsNoTracking()
+					  .FirstOrDefaultAsync(p => p.Id == command.Id, cancellationToken);
 
 		if (item is null)
-			throw new ProductNotFoundException(command.Product.Id);
+			throw new ProductNotFoundException(command.Id);
 
 		var itemToUpdate = item with
 						   {
-							   Image = command.Product.Image, Type = command.Product.Type,
-							   Name = command.Product.Name, Price = command.Product.Price
+							   Image = command.Image ?? item.Image,
+							   Type = command.Type ?? item.Type,
+							   Name = command.Name ?? item.Name,
+							   Price = command.Price ?? item.Price
 						   };
 
 		_db.Products.Update(itemToUpdate);

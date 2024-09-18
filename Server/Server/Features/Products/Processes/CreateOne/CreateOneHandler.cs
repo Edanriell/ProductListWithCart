@@ -6,16 +6,10 @@ using Server.Features.Products.Responses;
 
 namespace Server.Features.Products.Processes.CreateOne;
 
-public class CreateOneHandler
+public class CreateOneHandler(ProductContext db, CreateOneMapper mapper)
 {
-	private readonly ProductContext _db;
-	private readonly CreateOneMapper _mapper;
-
-	public CreateOneHandler(ProductContext db, CreateOneMapper mapper)
-	{
-		_db = db ?? throw new ArgumentNullException(nameof(db));
-		_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-	}
+	private readonly ProductContext _db = db ?? throw new ArgumentNullException(nameof(db));
+	private readonly CreateOneMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
 	public async Task<CreateOneResponse> HandleAsync(CreateOneCommand command, CancellationToken cancellationToken)
 	{
