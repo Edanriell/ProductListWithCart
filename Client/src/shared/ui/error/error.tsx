@@ -31,6 +31,9 @@ export const Error: FC<ErrorProps> = ({ children }) => {
 			exit="hidden"
 			className="error"
 		>
+			<div>
+				<img className="error__image" src="/images/vector/error.svg" alt="Error" />
+			</div>
 			{children}
 		</motion.div>
 	);
