@@ -18,7 +18,7 @@ import {
 type ProductProps = {
 	index: number;
 	id: number;
-	imageUrl: string;
+	image: string;
 	type: string;
 	name: string;
 	price: number;
@@ -38,7 +38,7 @@ const productImageVariants = {
 export const ProductCard: FC<ProductProps> = ({
 	index,
 	id,
-	imageUrl,
+	image,
 	type,
 	name,
 	price,
@@ -70,7 +70,7 @@ export const ProductCard: FC<ProductProps> = ({
 						variants={productImageVariants}
 						animate={isProductInCart ? "active" : "inactive"}
 						className="product__image"
-						src={imageUrl}
+						src={image}
 						alt={name}
 					/>
 				</picture>
