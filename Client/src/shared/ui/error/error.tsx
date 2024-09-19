@@ -1,6 +1,35 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { motion } from "framer-motion";
 
-export const Error: FC = () => {
-	return <motion.div></motion.div>;
+type ErrorProps = {
+	children: ReactNode;
+};
+
+const errorAnimationVariants = {
+	initial: {
+		scale: 0.8,
+		opacity: 0
+	},
+	displayed: {
+		scale: 1,
+		opacity: 1
+	},
+	hidden: {
+		scale: 0.8,
+		opacity: 0
+	}
+};
+
+export const Error: FC<ErrorProps> = ({ children }) => {
+	return (
+		<motion.div
+			variants={errorAnimationVariants}
+			initial="initial"
+			animate="displayed"
+			exit="hidden"
+			className="error"
+		>
+			{children}
+		</motion.div>
+	);
 };

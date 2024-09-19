@@ -11,6 +11,7 @@ import { CartActionsButton } from "@features/cart/ui/cart-actions-button";
 import { MainLayout } from "@widgets/layouts/main/ui";
 
 import { Loader } from "@shared/ui/loader";
+import { Error } from "@shared/ui/error";
 import { apiUse } from "@shared/config";
 
 import {
@@ -92,46 +93,46 @@ const products = [
 export const HomePage: FC = () => {
 	const { isLoading, isError, data } = useGetProductsQuery();
 
-	const renderProducts = () => {
-		if (apiUse) {
-			return data?.products.map(({ id, name, image, price, type }, index) => (
-				<HomePageProductListItem key={name + "-" + id + "-" + index}>
-					<ProductCard
-						index={index}
-						id={id}
-						image={convertBase64ToImageUrl(image, "jpg")}
-						name={name}
-						type={type}
-						price={price}
-						AddToCartButton={() =>
-							AddToCartButton({
-								id,
-								image: convertBase64ToImageUrl(image, "jpg"),
-								type,
-								name,
-								price
-							})
-						}
-						CartActionsButton={() => CartActionsButton({ id, name })}
-					/>
-				</HomePageProductListItem>
-			));
-		} else {
-			return products.map(({ id, image, type, name, price }, index) => (
-				<HomePageProductListItem key={name + "-" + id + "-" + index}>
-					<ProductCard
-						index={index}
-						id={id}
-						image={image}
-						name={name}
-						type={type}
-						price={price}
-						AddToCartButton={() => AddToCartButton({ id, image, type, name, price })}
-						CartActionsButton={() => CartActionsButton({ id, name })}
-					/>
-				</HomePageProductListItem>
-			));
-		}
+	const renderProductsFromDataBase = () => {
+		return data?.products.map(({ id, name, image, price, type }, index) => (
+			<HomePageProductListItem key={name + "-" + id + "-" + index}>
+				<ProductCard
+					index={index}
+					id={id}
+					image={convertBase64ToImageUrl(image, "jpg")}
+					name={name}
+					type={type}
+					price={price}
+					AddToCartButton={() =>
+						AddToCartButton({
+							id,
+							image: convertBase64ToImageUrl(image, "jpg"),
+							type,
+							name,
+							price
+						})
+					}
+					CartActionsButton={() => CartActionsButton({ id, name })}
+				/>
+			</HomePageProductListItem>
+		));
+	};
+
+	const renderProductsFromLocalDataBase = () => {
+		return products.map(({ id, image, type, name, price }, index) => (
+			<HomePageProductListItem key={name + "-" + id + "-" + index}>
+				<ProductCard
+					index={index}
+					id={id}
+					image={image}
+					name={name}
+					type={type}
+					price={price}
+					AddToCartButton={() => AddToCartButton({ id, image, type, name, price })}
+					CartActionsButton={() => CartActionsButton({ id, name })}
+				/>
+			</HomePageProductListItem>
+		));
 	};
 
 	return (
@@ -140,13 +141,18 @@ export const HomePage: FC = () => {
 				<HomePageContent>
 					<HomePageMainContent>
 						<HomePageTitle>Desserts</HomePageTitle>
-						<AnimatePresence mode="wait">
-							{isLoading && <Loader />}
-							{isError && <div>Error data</div>}
-							{data && data.products.length >= 1 && (
-								<HomePageProductList>{renderProducts()}</HomePageProductList>
-							)}
-						</AnimatePresence>
+						{apiUse && (
+							<AnimatePresence mode="wait">
+								{isLoading && <Loader />}
+								{isError && <Error>Could not load products</Error>}
+								{data && data.products.length >= 1 && (
+									<HomePageProductList>{renderProductsFromDataBase()}</HomePageProductList>
+								)}
+							</AnimatePresence>
+						)}
+						{!apiUse && (
+							<HomePageProductList>{renderProductsFromLocalDataBase()}</HomePageProductList>
+						)}
 					</HomePageMainContent>
 					<Cart />
 				</HomePageContent>
