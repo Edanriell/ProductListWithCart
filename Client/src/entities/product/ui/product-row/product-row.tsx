@@ -21,11 +21,11 @@ type ProductRowProps = {
 };
 
 export const ProductRow: FC<ProductRowProps> = ({ product, styles }) => {
-	const { imageUrl, name, count, price } = product;
+	const { image, name, count, price } = product;
 
 	return (
 		<ProductRowStyled style={styles}>
-			<ProductRowProductImage src={imageUrl} alt={"Image of " + name} />
+			<ProductRowProductImage src={image} alt={"Image of " + name} />
 			<ProductRowContent>
 				<ProductRowContentWrapper>
 					<ProductRowProductName>{name}</ProductRowProductName>

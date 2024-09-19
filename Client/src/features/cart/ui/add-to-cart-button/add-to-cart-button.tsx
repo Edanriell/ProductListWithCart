@@ -20,11 +20,11 @@ const addToCartButtonAnimationVariants = {
 	taped: { scale: 0.9, color: "#c73b0f", borderColor: "#c73b0f" }
 };
 
-export const AddToCartButton: FC<AddToCartButtonProps> = ({ id, imageUrl, type, name, price }) => {
+export const AddToCartButton: FC<AddToCartButtonProps> = ({ id, image, type, name, price }) => {
 	const dispatch = useAppDispatch();
 
 	const handleAddToCartButtonClick = () => {
-		dispatch(addToCart({ id, imageUrl, type, name, price }));
+		dispatch(addToCart({ id, image, type, name, price }));
 	};
 
 	return (

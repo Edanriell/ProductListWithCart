@@ -1,12 +1,16 @@
 import { FC } from "react";
 
 import { ProductCard } from "@entities/product/ui/product-card";
+import { useGetProductsQuery } from "@entities/product/api";
+import { convertBase64ToImageUrl } from "@entities/product/lib/functions";
 
 import { Cart } from "@features/cart/ui/cart";
 import { AddToCartButton } from "@features/cart/ui/add-to-cart-button";
 import { CartActionsButton } from "@features/cart/ui/cart-actions-button";
 
 import { MainLayout } from "@widgets/layouts/main/ui";
+
+import { apiUse } from "@shared/config";
 
 import {
 	HomePageContent,
@@ -20,63 +24,63 @@ import {
 const products = [
 	{
 		id: 1,
-		imageUrl: "/images/raster/products/waffle-with-berries.jpg",
+		image: "/images/raster/products/waffle-with-berries.jpg",
 		type: "Waffle",
 		name: "Waffle with Berries",
 		price: 6.5
 	},
 	{
 		id: 2,
-		imageUrl: "/images/raster/products/vanilla-bean-creme-brulee.jpg",
+		image: "/images/raster/products/vanilla-bean-creme-brulee.jpg",
 		type: "Crème Brûlée",
 		name: "Vanilla Bean Crème Brûlée",
 		price: 7.0
 	},
 	{
 		id: 3,
-		imageUrl: "/images/raster/products/macaron-mix-of-five.jpg",
+		image: "/images/raster/products/macaron-mix-of-five.jpg",
 		type: "Macaron",
 		name: "Macaron Mix of Five",
 		price: 8.0
 	},
 	{
 		id: 4,
-		imageUrl: "/images/raster/products/classic-tiramisu.jpg",
+		image: "/images/raster/products/classic-tiramisu.jpg",
 		type: "Tiramisu",
 		name: "Classic Tiramisu",
 		price: 5.5
 	},
 	{
 		id: 5,
-		imageUrl: "/images/raster/products/pistachio-baklava.jpg",
+		image: "/images/raster/products/pistachio-baklava.jpg",
 		type: "Baklava",
 		name: "Pistachio Baklava",
 		price: 4.0
 	},
 	{
 		id: 6,
-		imageUrl: "/images/raster/products/lemon-meringue-pie.jpg",
+		image: "/images/raster/products/lemon-meringue-pie.jpg",
 		type: "Pie",
 		name: "Lemon Meringue Pie",
 		price: 5.0
 	},
 	{
 		id: 7,
-		imageUrl: "/images/raster/products/red-velvet-cake.jpg",
+		image: "/images/raster/products/red-velvet-cake.jpg",
 		type: "Cake",
 		name: "Red Velvet Cake",
 		price: 4.5
 	},
 	{
 		id: 8,
-		imageUrl: "/images/raster/products/salted-caramel-brownie.jpg",
+		image: "/images/raster/products/salted-caramel-brownie.jpg",
 		type: "Brownie",
 		name: "Salted Caramel Brownie",
 		price: 5.5
 	},
 	{
 		id: 9,
-		imageUrl: "/images/raster/products/vanilla-panna-cotta.jpg",
+		image: "/images/raster/products/vanilla-panna-cotta.jpg",
 		type: "Panna Cotta",
 		name: "Vanilla Panna Cotta",
 		price: 6.5
@@ -84,21 +88,48 @@ const products = [
 ];
 
 export const HomePage: FC = () => {
+	const { isLoading, isError, data } = useGetProductsQuery();
+
 	const renderProducts = () => {
-		return products.map(({ id, imageUrl, type, name, price }, index) => (
-			<HomePageProductListItem key={name + "-" + id + "-" + index}>
-				<ProductCard
-					index={index}
-					id={id}
-					imageUrl={imageUrl}
-					name={name}
-					type={type}
-					price={price}
-					AddToCartButton={() => AddToCartButton({ id, imageUrl, type, name, price })}
-					CartActionsButton={() => CartActionsButton({ id, name })}
-				/>
-			</HomePageProductListItem>
-		));
+		if (apiUse) {
+			return data?.products.map(({ id, name, image, price, type }, index) => (
+				<HomePageProductListItem key={name + "-" + id + "-" + index}>
+					<ProductCard
+						index={index}
+						id={id}
+						image={convertBase64ToImageUrl(image, "jpg")}
+						name={name}
+						type={type}
+						price={price}
+						AddToCartButton={() =>
+							AddToCartButton({
+								id,
+								image: convertBase64ToImageUrl(image, "jpg"),
+								type,
+								name,
+								price
+							})
+						}
+						CartActionsButton={() => CartActionsButton({ id, name })}
+					/>
+				</HomePageProductListItem>
+			));
+		} else {
+			return products.map(({ id, image, type, name, price }, index) => (
+				<HomePageProductListItem key={name + "-" + id + "-" + index}>
+					<ProductCard
+						index={index}
+						id={id}
+						image={image}
+						name={name}
+						type={type}
+						price={price}
+						AddToCartButton={() => AddToCartButton({ id, image, type, name, price })}
+						CartActionsButton={() => CartActionsButton({ id, name })}
+					/>
+				</HomePageProductListItem>
+			));
+		}
 	};
 
 	return (
@@ -107,7 +138,11 @@ export const HomePage: FC = () => {
 				<HomePageContent>
 					<HomePageMainContent>
 						<HomePageTitle>Desserts</HomePageTitle>
-						<HomePageProductList>{renderProducts()}</HomePageProductList>
+						{isLoading && <div>Loading Data</div>}
+						{isError && <div>Error data</div>}
+						{data && data.products.length >= 1 && (
+							<HomePageProductList>{renderProducts()}</HomePageProductList>
+						)}
 					</HomePageMainContent>
 					<Cart />
 				</HomePageContent>
