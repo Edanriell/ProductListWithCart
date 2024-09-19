@@ -1,3 +1,5 @@
+import "./error.less";
+
 import { FC, ReactNode } from "react";
 import { motion } from "framer-motion";
 
