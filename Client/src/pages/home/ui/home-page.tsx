@@ -10,6 +10,7 @@ import { CartActionsButton } from "@features/cart/ui/cart-actions-button";
 
 import { MainLayout } from "@widgets/layouts/main/ui";
 
+import { Loader } from "@shared/ui/loader";
 import { apiUse } from "@shared/config";
 
 import {
@@ -20,6 +21,7 @@ import {
 	HomePageStyled,
 	HomePageTitle
 } from "./styles";
+import { AnimatePresence } from "framer-motion";
 
 const products = [
 	{
@@ -138,11 +140,13 @@ export const HomePage: FC = () => {
 				<HomePageContent>
 					<HomePageMainContent>
 						<HomePageTitle>Desserts</HomePageTitle>
-						{isLoading && <div>Loading Data</div>}
-						{isError && <div>Error data</div>}
-						{data && data.products.length >= 1 && (
-							<HomePageProductList>{renderProducts()}</HomePageProductList>
-						)}
+						<AnimatePresence mode="wait">
+							{isLoading && <Loader />}
+							{isError && <div>Error data</div>}
+							{data && data.products.length >= 1 && (
+								<HomePageProductList>{renderProducts()}</HomePageProductList>
+							)}
+						</AnimatePresence>
 					</HomePageMainContent>
 					<Cart />
 				</HomePageContent>
