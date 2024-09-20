@@ -6,9 +6,11 @@ import { motion } from "framer-motion";
 import { ProductRow } from "@entities/product/ui/product-row";
 import { formatNumberToTwoDecimalPlaces } from "@entities/product/lib/functions";
 
+import { clearCart } from "@features/cart/model";
+
 import { Button } from "@shared/ui/button";
 import { Icon, IconType } from "@shared/ui/icon";
-import { useAppSelector, useWindowSize } from "@shared/lib/hooks";
+import { useAppDispatch, useAppSelector, useWindowSize } from "@shared/lib/hooks";
 
 import {
 	CartModalContent,
@@ -37,6 +39,7 @@ const cartModalAnimationVariants = {
 };
 
 export const CartModal: FC<CartModalProps> = ({ onModalClose }) => {
+	const dispatch = useAppDispatch();
 	const { width } = useWindowSize();
 
 	const cartProducts = useAppSelector((state) => state.cart.products);
@@ -55,6 +58,14 @@ export const CartModal: FC<CartModalProps> = ({ onModalClose }) => {
 			setIsCartProductListOverflowing(hasOverflow);
 		}
 	}, [cartProductListRef.current]);
+
+	const handleStartNewOrderButtonClick = () => {
+		onModalClose();
+
+		setTimeout(() => {
+			dispatch(clearCart());
+		}, 250);
+	};
 
 	const renderCartProducts = () => {
 		return cartProducts.map((product, index) => (
@@ -94,7 +105,7 @@ export const CartModal: FC<CartModalProps> = ({ onModalClose }) => {
 						</CartModalOrderTotal>
 					</CartModalContent>
 					<CartModalFooter>
-						<Button onClick={onModalClose}>Start New Order</Button>
+						<Button onClick={handleStartNewOrderButtonClick}>Start New Order</Button>
 					</CartModalFooter>
 				</motion.div>
 			)}

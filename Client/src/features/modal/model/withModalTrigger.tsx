@@ -1,4 +1,4 @@
-import { FC, Fragment, useEffect, useState } from "react";
+import { FC, Fragment, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { Modal } from "../ui/modal";
@@ -16,10 +16,6 @@ export const withModalTrigger = <T extends Record<string, unknown>>({
 }: withModalTriggerProps<T>) => {
 	return (props: T) => {
 		const [modalState, setModalState] = useState<"opened" | "closed">("closed");
-
-		useEffect(() => {
-			console.log(`Modal is ${modalState}`);
-		}, [modalState]);
 
 		const handleTriggerButtonClick = () => {
 			setModalState((prevState) => (prevState === "closed" ? "opened" : "closed"));
