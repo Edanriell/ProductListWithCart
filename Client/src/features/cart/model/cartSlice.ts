@@ -41,6 +41,9 @@ export const cartSlice = createSlice({
 			// 	products: state.products.filter((product-card: CartProduct) => product-card.id !== action.payload.id)
 			// };
 		},
+		clearCart: (state: CartState, action: PayloadAction<void>) => {
+			state.products = [];
+		},
 		incrementProductCount: (state: CartState, action: PayloadAction<{ id: number }>) => {
 			const product = state.products.find((product) => product.id === action.payload.id);
 
@@ -87,11 +90,13 @@ export const cartSlice = createSlice({
 	}
 });
 
-export const { addToCart, removeFromCart, incrementProductCount, decrementProductCount } =
-	cartSlice.actions;
+export const {
+	addToCart,
+	removeFromCart,
+	clearCart,
+	incrementProductCount,
+	decrementProductCount
+} = cartSlice.actions;
 
 export const totalProductsCount = (state: RootState) =>
 	state.cart.products.reduce((total: number, product: CartProduct) => total + product.count, 0);
-
-// TODO
-// Inspect logic

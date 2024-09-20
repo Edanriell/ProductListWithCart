@@ -17,10 +17,6 @@ export const withModalTrigger = <T extends Record<string, unknown>>({
 	return (props: T) => {
 		const [modalState, setModalState] = useState<"opened" | "closed">("closed");
 
-		useEffect(() => {
-			console.log(`Modal is ${modalState}`);
-		}, [modalState]);
-
 		const handleTriggerButtonClick = () => {
 			setModalState((prevState) => (prevState === "closed" ? "opened" : "closed"));
 		};
@@ -28,6 +24,10 @@ export const withModalTrigger = <T extends Record<string, unknown>>({
 		const handleCloseModalButtonClick = () => {
 			setModalState("closed");
 		};
+
+		useEffect(() => {
+			console.log("Modal state:", modalState);
+		}, [modalState]);
 
 		return (
 			<Fragment>

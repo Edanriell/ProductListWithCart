@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { AnimatePresence } from "framer-motion";
 
 import { ProductCard } from "@entities/product/ui/product-card";
 import { useGetProductsQuery } from "@entities/product/api";
@@ -22,7 +23,6 @@ import {
 	HomePageStyled,
 	HomePageTitle
 } from "./styles";
-import { AnimatePresence } from "framer-motion";
 
 const products = [
 	{
