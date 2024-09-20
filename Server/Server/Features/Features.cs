@@ -20,7 +20,7 @@ public static class Features
 	public static IEndpointRouteBuilder MapFeatures(this IEndpointRouteBuilder endpoints)
 	{
 		var group = endpoints
-		   .MapGroup("/")
+		   .MapGroup("/api")
 		   .AddFluentValidationFilter();
 
 		group
