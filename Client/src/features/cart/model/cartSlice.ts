@@ -12,7 +12,11 @@ type CartState = {
 };
 
 const initialState: CartState = {
-	products: []
+	products: JSON.parse(localStorage.getItem("cart") || "[]") // Initialize from localStorage
+};
+
+const updateLocalStorage = (cart: CartProduct[]) => {
+	localStorage.setItem("cart", JSON.stringify(cart));
 };
 
 export const cartSlice = createSlice({
@@ -20,21 +24,24 @@ export const cartSlice = createSlice({
 	initialState,
 	reducers: {
 		addToCart: (state: CartState, action: PayloadAction<Product>) => {
-			const product = state.products.find((product) => product.id === action.payload.id);
+			const product = state.products.find((p) => p.id === action.payload.id);
 
 			if (!product) {
-				state.products.push({ ...action.payload, count: 1 });
+				const newProduct = { ...action.payload, count: 1 };
+				state.products.push(newProduct);
 
-				// return {
-				// 	...state,
-				// 	products: [...state.products, { ...action.payload, count: 1 }]
-				// };
+				updateLocalStorage(state.products);
 			}
+
+			// return {
+			// 	...state,
+			// 	products: [...state.products, { ...action.payload, count: 1 }]
+			// };
 		},
 		removeFromCart: (state: CartState, action: PayloadAction<{ id: number }>) => {
-			state.products = state.products.filter(
-				(product: CartProduct) => product.id !== action.payload.id
-			);
+			state.products = state.products.filter((product) => product.id !== action.payload.id);
+
+			updateLocalStorage(state.products);
 
 			// return {
 			// 	...state,
@@ -43,12 +50,14 @@ export const cartSlice = createSlice({
 		},
 		clearCart: (state: CartState, action: PayloadAction<void>) => {
 			state.products = [];
+			localStorage.removeItem("cart");
 		},
 		incrementProductCount: (state: CartState, action: PayloadAction<{ id: number }>) => {
-			const product = state.products.find((product) => product.id === action.payload.id);
+			const product = state.products.find((p) => p.id === action.payload.id);
 
 			if (product) {
 				product.count += 1;
+				updateLocalStorage(state.products);
 			}
 
 			// return {
@@ -59,14 +68,15 @@ export const cartSlice = createSlice({
 			// };
 		},
 		decrementProductCount: (state: CartState, action: PayloadAction<{ id: number }>) => {
-			const product = state.products.find((product) => product.id === action.payload.id);
+			const product = state.products.find((p) => p.id === action.payload.id);
 
 			if (product) {
 				if (product.count > 1) {
 					product.count -= 1;
 				} else {
-					state.products = state.products.filter((product) => product.id !== action.payload.id);
+					state.products = state.products.filter((p) => p.id !== action.payload.id);
 				}
+				updateLocalStorage(state.products);
 			}
 
 			// if (product) {
